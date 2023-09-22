@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'aboutpageorg.dart';
 import 'homepageorg.dart';
 import 'maporg.dart';
 
@@ -18,12 +19,11 @@ class BottomNavBarOrg extends StatefulWidget {
 class _BottomNavBarOrgState extends State<BottomNavBarOrg> {
   var pageIndex = 0;
 
-  final pages = const [
+  final pages =  [
     HomePageOrg(),
     MapPageOrg(),
-    Center(
-      child: Text("page3"),
-    ),
+
+    AboutPageOrg(),
     Center(
       child: Text("page4"),
     ),

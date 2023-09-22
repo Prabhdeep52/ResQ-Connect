@@ -1,4 +1,5 @@
-import 'package:disaster_managment_sih/features/OrgSide/OrgDetail/widgets/resoursesTile.dart';
+import 'package:disaster_managment_sih/features/search/mapscreendemo.dart';
+import 'package:disaster_managment_sih/orgs/resoursesTile.dart';
 import 'package:disaster_managment_sih/features/home/widgets/alertTile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -151,7 +152,60 @@ class _OrgDetailPageState extends State<OrgDetailPage> {
               itemBuilder: (context, index) {
                 return InkWell(onTap: () {}, child: const ResoursesTile());
               },
-            )
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 10.w, top: 15.h),
+              height: 1,
+              width: 370.w,
+              decoration:
+                  BoxDecoration(border: Border.all(color: Colors.black)),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 14.w, top: 15.h),
+              child: Text(
+                "Click to go to location",
+                style: TextStyle(
+                    fontSize: 23.sp,
+                    fontFamily: "Montserrat-SemiBold",
+                    fontWeight: FontWeight.w600),
+              ),
+            ),
+            SizedBox(
+              height: 30.h,
+            ),
+            SingleChildScrollView(
+                child: Center(
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return MapSceen2();
+                  }));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Color.fromRGBO(173, 172, 172, 1),
+                          blurRadius: 20,
+                          offset: Offset(0, 11))
+                    ],
+                    image: const DecorationImage(
+                        image: AssetImage("assets/images/map.png")),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  padding: EdgeInsets.only(bottom: 50.h),
+                  height: 300.h,
+                  width: 300.w,
+                ),
+              ),
+            )),
+            SizedBox(
+              height: 40.h,
+            ),
           ],
         ),
       ),
