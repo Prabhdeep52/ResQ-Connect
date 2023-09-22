@@ -89,12 +89,38 @@ app.get("/orgFetch", (req, res) => {
   Org.find().then((orgs) => res.json(orgs));
 }
 );
-//Search filter by organization type
+//Search filters for organisations:
+//By organization type:
 app.get("/orgFetch/:orgtype", (req, res) => {
   Org.find({ orgtype: req.params.orgtype }).then((orgs) => res.json(orgs));
 }
 );
-
+//By location:
+app.get("/orgFetch/:location", (req, res) => {
+  Org.find({ location: req.params.location }).then((orgs) => res.json(orgs));
+}
+);
+//Search filters for reports:
+//By disaster type:
+app.get("/reportFetch/:dtype", (req, res) => {
+  Report.find({ dtype: req.params.dtype }).then((reports) => res.json(reports));
+}
+);
+//By location:
+app.get("/reportFetch/:location", (req, res) => {
+  Report.find({ location: req.params.location }).then((reports) => res.json(reports));
+}
+);
+//By status:
+app.get("/reportFetch/:status", (req, res) => {
+  Report.find({ status: req.params.status }).then((reports) => res.json(reports));
+}
+);
+//By date:
+app.get("/reportFetch/:date", (req, res) => {
+  Report.find({ date: req.params.date }).then((reports) => res.json(reports));
+}
+);
 app.listen(3000 || process.env.PORT, () => {
   console.log("Server running on 3000")
 });
