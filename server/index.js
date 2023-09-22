@@ -44,7 +44,8 @@ app.post("/reportPost", (req, res) => {
   .catch((error) => {
     //When there are errors We handle them here
     console.log(err);
-    res.send(400, "Bad Request");
+    res.send(400, "Bad Request")
+    .then(() => res.send("Report added successfully"));
 
 });
 });
@@ -78,7 +79,8 @@ app.post("/orgPost", (req, res) => {
   .catch((error) => {
     //When there are errors We handle them here
     console.log(err);
-    res.send(400, "Bad Request");
+    res.send(400, "Bad Request")
+    .then(() => res.send("Organization added successfully"));
 
 });
 });
