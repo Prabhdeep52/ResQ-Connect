@@ -1,3 +1,4 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -28,7 +29,10 @@ class SOSscreen extends StatelessWidget {
             children: [
               Text(
                 "Are you in emergency?",
-                style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                    fontFamily: "Roboto",
+                    fontSize: 25.sp,
+                    fontWeight: FontWeight.w500),
               ),
             ],
           ),
@@ -43,7 +47,10 @@ class SOSscreen extends StatelessWidget {
                 // overflow: TextOverflow.ellipsis,
                 // textDirection: TextDirection.rtl,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w300),
+                style: TextStyle(
+                    fontFamily: "Roboto",
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w400),
               ),
             ),
           ),
@@ -51,46 +58,32 @@ class SOSscreen extends StatelessWidget {
             height: 70.h,
           ),
           Center(
-            child: InkWell(
-              borderRadius: BorderRadius.circular(50),
-              onTap: () {},
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    height: 222.sp,
-                    width: 222.sp,
-                    decoration: BoxDecoration(
-                        color: const Color.fromRGBO(248, 210, 212, 1),
-                        borderRadius: BorderRadius.circular(100.sp)),
-                  ),
-                  Container(
-                    height: 191.sp,
-                    width: 191.sp,
-                    decoration: BoxDecoration(
-                        color: const Color.fromRGBO(245, 170, 174, 1),
-                        borderRadius: BorderRadius.circular(100.sp)),
-                  ),
-                  Container(
-                    height: 160.sp,
-                    width: 160.sp,
-                    decoration: BoxDecoration(
-                        color: const Color.fromRGBO(244, 114, 122, 1),
-                        borderRadius: BorderRadius.circular(100.sp)),
-                  ),
-                  Text(
-                    "SOS",
-                    style: TextStyle(
+            child: AvatarGlow(
+              endRadius: 80.0,
+              animate: true,
+              duration: const Duration(milliseconds: 2000),
+              glowColor: const Color(0xFFF4727A),
+              repeatPauseDuration: const Duration(milliseconds: 100),
+              showTwoGlows: true,
+              child: GestureDetector(
+                onTap: () {},
+                child: const CircleAvatar(
+                    backgroundColor: Color(0xFFF4727A),
+                    radius: 45,
+                    child: Text(
+                      "SOS",
+                      style: TextStyle(
                         color: Colors.white,
-                        fontSize: 28.sp,
-                        fontWeight: FontWeight.w700),
-                  ),
-                ],
+                        fontSize: 25,
+                        fontFamily: "Roboto",
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )),
               ),
             ),
           ),
           SizedBox(
-            height: 150.h,
+            height: 180.h,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -103,7 +96,7 @@ class SOSscreen extends StatelessWidget {
                     color: const Color.fromARGB(255, 255, 255, 255),
                     boxShadow: const [
                       BoxShadow(
-                          color: Color.fromRGBO(137, 133, 133, 1),
+                          color: Color.fromRGBO(163, 161, 161, 1),
                           blurRadius: 4,
                           offset: Offset(0, 2))
                     ],
@@ -116,7 +109,9 @@ class SOSscreen extends StatelessWidget {
                       child: Text(
                         "Your Address",
                         style: TextStyle(
-                            fontSize: 17.sp, fontWeight: FontWeight.w600),
+                            fontFamily: "Roboto",
+                            fontSize: 17.sp,
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
                     Padding(
@@ -127,7 +122,9 @@ class SOSscreen extends StatelessWidget {
                           "New york street , block c switzerland pincode - 629191",
                           textAlign: TextAlign.start,
                           style: TextStyle(
-                              fontSize: 12.sp, fontWeight: FontWeight.w500),
+                              fontFamily: "Roboto",
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500),
                         ),
                       ),
                     )
