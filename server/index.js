@@ -9,6 +9,10 @@ async function main() {
   console.log(mongoose.connection.readyState)
 }
 main().catch(err => console.log(err));
+app.get("/", (req, res) => {
+  res.send("ResQ API");
+}
+);
 const reportSchema = new mongoose.Schema({
   name: String,
   dtype: String,
@@ -35,12 +39,32 @@ app.post("/reportPost", (req, res) => {
   });
   report.save();
 });
-app.get("/", (req, res) => {
-  res.send("ResQ API");
-}
-);
 app.get("/reportFetch", (req, res) => {
   Report.find().then((reports) => res.json(reports));
+}
+);
+const orgSchema = new mongoose.Schema({
+  name: String,
+  description: String,
+  orgtype: String,
+  contact: Number,
+  location: String,
+  logo: String,
+});
+const Org = mongoose.model("Org", orgSchema);
+app.post("/orgPost", (req, res) => {
+  const org = new Org({
+    name: req.body.name,
+    description: req.body.description,
+    orgtype: req.body.orgtype,
+    contact: req.body.contact,
+    location: req.body.location,
+    logo: req.body.logo,
+  });
+  org.save();
+});
+app.get("/orgFetch", (req, res) => {
+  Org.find().then((orgs) => res.json(orgs));
 }
 );
 
