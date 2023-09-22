@@ -75,6 +75,11 @@ app.get("/orgFetch", (req, res) => {
   Org.find().then((orgs) => res.json(orgs));
 }
 );
+//Search filter by organization type
+app.get("/orgFetch/:orgtype", (req, res) => {
+  Org.find({ orgtype: req.params.orgtype }).then((orgs) => res.json(orgs));
+}
+);
 
 app.listen(3000 || process.env.PORT, () => {
   console.log("Server running on 3000")
