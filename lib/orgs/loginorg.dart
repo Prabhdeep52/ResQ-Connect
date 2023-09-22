@@ -1,7 +1,12 @@
+import 'package:disaster_managment_sih/auth/auth_service.dart';
+
 import 'package:disaster_managment_sih/features/home/widgets/customtextfield.dart';
 import 'package:disaster_managment_sih/orgs/signUpPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+
+import 'navpageorg.dart';
 
 class LoginOrg extends StatefulWidget {
   const LoginOrg({super.key});
@@ -11,13 +16,31 @@ class LoginOrg extends StatefulWidget {
 }
 
 class _LoginOrgState extends State<LoginOrg> {
-  final TextEditingController empIdController = TextEditingController();
+  //final TextEditingController empIdController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+
+  void signIn() async {
+    final authService = Provider.of<AuthService>(context, listen: false);
+    try {
+      await authService.signInWithEmailandPassword(
+          emailController.text, passwordController.text);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const BottomNavBarOrg(),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
 
   @override
   void dispose() {
     super.dispose();
-    empIdController.dispose();
+    emailController.dispose();
 
     passwordController.dispose();
   }
@@ -52,8 +75,8 @@ class _LoginOrgState extends State<LoginOrg> {
           ),
           CustomTextField(
             maxLines: 1,
-            controller: empIdController,
-            text1: "Empployee Id",
+            controller: emailController,
+            text1: "Email",
           ),
           CustomTextField(
             maxLines: 1,
@@ -72,8 +95,7 @@ class _LoginOrgState extends State<LoginOrg> {
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFF4727A)),
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const SignUpOrg()));
+                      signIn();
                     },
                     child: const Text(
                       "Continue",
@@ -93,7 +115,7 @@ class _LoginOrgState extends State<LoginOrg> {
                         builder: (context) => const SignUpOrg()));
                   },
                   child: const Text(
-                    "Sign In",
+                    "Sign Up",
                     style: TextStyle(
                         color: Color(
                           0xFFF4727A,

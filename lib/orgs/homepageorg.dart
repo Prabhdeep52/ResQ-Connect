@@ -21,10 +21,10 @@ class _HomePageOrgState extends State<HomePageOrg> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "Welcome",
@@ -41,15 +41,15 @@ class _HomePageOrgState extends State<HomePageOrg> {
                 height: 200,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    image: DecorationImage(
+                    image: const DecorationImage(
                         image: AssetImage("assets/images/people.png")),
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: const Color.fromARGB(255, 255, 255, 255),
                     borderRadius: BorderRadius.circular(10)),
               ),
               SizedBox(
                 height: 20.h,
               ),
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "Reported Disasters",
@@ -61,7 +61,7 @@ class _HomePageOrgState extends State<HomePageOrg> {
               ),
               ListView.builder(
                   scrollDirection: Axis.vertical,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: 4,
                   itemBuilder: (BuildContext context, int index) {
@@ -77,7 +77,7 @@ class _HomePageOrgState extends State<HomePageOrg> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   "Food Shortage",
                                   style: TextStyle(
                                       fontFamily: "Montserrat",

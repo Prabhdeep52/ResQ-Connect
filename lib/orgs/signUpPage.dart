@@ -1,8 +1,13 @@
+import 'package:disaster_managment_sih/auth/auth_service.dart';
 import 'package:disaster_managment_sih/features/home/widgets/customtextfield.dart';
+import 'package:disaster_managment_sih/orgs/homepageorg.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import 'loginorg.dart';
+import 'navpageorg.dart';
 
 class SignUpOrg extends StatefulWidget {
   const SignUpOrg({super.key});
@@ -15,6 +20,46 @@ class _SignUpOrgState extends State<SignUpOrg> {
   final TextEditingController empIdController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController cnfmpassController = TextEditingController();
+
+  void signUp() async {
+    if (passwordController.text != cnfmpassController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Passwords do not Match! ")));
+      return;
+    }
+
+    final authService = Provider.of<AuthService>(context, listen: false);
+
+    try {
+      await authService.signUpWithEmailPassword(
+        emailController.text,
+        passwordController.text,
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const BottomNavBarOrg(),
+        ),
+      );
+      print("sign up success");
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            e.toString(),
+          ),
+        ),
+      );
+    }
+  }
+  //   void signUpUser() async {
+  //   FirebaseAuthMethods(FirebaseAuth.instance).signUpWithEmail(
+  //     email: emailController.text,
+  //     password: passwordController.text,
+  //     context: context,
+  //   );
+  // }
 
   @override
   void dispose() {
@@ -74,8 +119,13 @@ class _SignUpOrgState extends State<SignUpOrg> {
             controller: passwordController,
             text1: "Password",
           ),
+          CustomTextField(
+            maxLines: 1,
+            controller: cnfmpassController,
+            text1: "Confirm Password",
+          ),
           SizedBox(
-            height: 100.h,
+            height: 90.h,
           ),
           Padding(
             padding: const EdgeInsets.all(6.0),
@@ -84,8 +134,10 @@ class _SignUpOrgState extends State<SignUpOrg> {
                 width: double.infinity,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFF4727A)),
-                    onPressed: () {},
+                        backgroundColor: const Color(0xFFF4727A)),
+                    onPressed: () {
+                      signUp();
+                    },
                     child: const Text(
                       "Continue",
                       style: TextStyle(

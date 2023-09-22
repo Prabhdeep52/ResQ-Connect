@@ -1,7 +1,11 @@
+import 'package:disaster_managment_sih/auth/auth_service.dart';
 import 'package:disaster_managment_sih/features/bottomNav/bottomNavBar.dart';
+import 'package:disaster_managment_sih/firebase_options.dart';
 import 'package:disaster_managment_sih/users/disaster_info_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import 'features/authScreens/landingscreen.dart';
 import 'features/authScreens/signuppage.dart';
@@ -9,9 +13,21 @@ import 'features/home/homepage.dart';
 import 'orgs/navpageorg.dart';
 import 'orgs/signupPage.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => AuthService(),
+      child: const MyApp(),
+    ),
+  );
 }
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+//   runApp(const MyApp());
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -31,7 +47,7 @@ class MyApp extends StatelessWidget {
               fontFamily: 'Montserrat',
               primarySwatch: Colors.blue,
             ),
-            home: const DisasterInfo(),
+            home: const BottomNavBar(),
           );
         });
   }
