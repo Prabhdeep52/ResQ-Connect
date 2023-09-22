@@ -21,6 +21,20 @@ class _HomePageOrgState extends State<HomePageOrg> {
           padding: EdgeInsets.only(left: 17.w, top: 12.h),
           child: Column(
             children: [
+// <<<<<<< asad
+//               const SizedBox(
+//                 height: 10,
+//               ),
+//               const Align(
+//                 alignment: Alignment.centerLeft,
+//                 child: Text(
+//                   "Welcome",
+//                   style: TextStyle(
+//                       fontFamily: "Roboto",
+//                       fontWeight: FontWeight.w400,
+//                       fontSize: 24),
+//                 ),
+
               SizedBox(
                 height: 10.h,
               ),
@@ -44,6 +58,7 @@ class _HomePageOrgState extends State<HomePageOrg> {
                         size: 30.sp,
                       ))
                 ],
+
               ),
               SizedBox(
                 height: 10.h,
@@ -55,12 +70,15 @@ class _HomePageOrgState extends State<HomePageOrg> {
                     image: const DecorationImage(
                         image: AssetImage("assets/images/people.png")),
                     color: const Color.fromARGB(255, 255, 255, 255),
+
+
                     borderRadius: BorderRadius.circular(10.sp)),
+
               ),
               SizedBox(
                 height: 20.h,
               ),
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "Reported Disasters",
@@ -75,26 +93,55 @@ class _HomePageOrgState extends State<HomePageOrg> {
               ),
               ListView.builder(
                   scrollDirection: Axis.vertical,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: 4,
                   itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                      onTap: () {},
-                      child: Container(
-                        // decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-                        padding: EdgeInsets.only(
-                            left: 12.w, bottom: 20.h, top: 10.h),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "SOS 🆘",
+
+                    return Container(
+                      // decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+                      padding:
+                          EdgeInsets.only(left: 12.w, bottom: 20.h, top: 10.h),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Food Shortage",
+                                  style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: 6.h,
+                                ),
+                                SizedBox(
+                                  height: 50.h,
+                                  width: 180.w,
+                                  child: Text(
+                                    "The area is flooded with water and people are stuck",
+
+//                     return InkWell(
+//                       onTap: () {},
+//                       child: Container(
+//                         // decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+//                         padding: EdgeInsets.only(
+//                             left: 12.w, bottom: 20.h, top: 10.h),
+//                         child: Padding(
+//                           padding: const EdgeInsets.all(8.0),
+//                           child: Row(
+//                             mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                             children: [
+//                               Column(
+//                                 crossAxisAlignment: CrossAxisAlignment.start,
+//                                 children: [
+//                                   const Text(
+//                                     "SOS 🆘",
+
                                     style: TextStyle(
                                         fontFamily: "Montserrat",
                                         fontWeight: FontWeight.bold),

@@ -33,11 +33,18 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   avatar_glow: ^2.0.2
   cupertino_icons: ^1.0.2
+  firebase_auth: ^4.10.0
+  firebase_core: ^2.16.0
   flutter:
     sdk: flutter
+
+  provider: ^6.0.5
+
+
   dio: ^5.3.3  
   flutter_polyline_points: ^1.0.0
   google_maps_flutter: ^2.2.2
+
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_screenutil: ^5.6.1

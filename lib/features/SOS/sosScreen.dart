@@ -4,6 +4,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../users/disaster_info_page.dart';
+
 class SOSscreen extends StatelessWidget {
   const SOSscreen({super.key});
 
@@ -57,28 +59,37 @@ class SOSscreen extends StatelessWidget {
           SizedBox(
             height: 70.h,
           ),
-          Center(
-            child: AvatarGlow(
-              endRadius: 80.0,
-              animate: true,
-              duration: const Duration(milliseconds: 2000),
-              glowColor: const Color(0xFFF4727A),
-              repeatPauseDuration: const Duration(milliseconds: 100),
-              showTwoGlows: true,
-              child: GestureDetector(
-                onTap: () {},
-                child: const CircleAvatar(
-                    backgroundColor: Color(0xFFF4727A),
-                    radius: 45,
-                    child: Text(
-                      "SOS",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontFamily: "Roboto",
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const DisasterInfo()));
+            },
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const DisasterInfo()));
+              },
+              child: const Center(
+                child: AvatarGlow(
+                  endRadius: 80.0,
+                  animate: true,
+                  duration: Duration(milliseconds: 2000),
+                  glowColor: Color(0xFFF4727A),
+                  repeatPauseDuration: Duration(milliseconds: 100),
+                  showTwoGlows: true,
+                  child: CircleAvatar(
+                      backgroundColor: Color(0xFFF4727A),
+                      radius: 45,
+                      child: Text(
+                        "SOS",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontFamily: "Roboto",
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )),
+                ),
               ),
             ),
           ),
