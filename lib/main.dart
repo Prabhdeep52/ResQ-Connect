@@ -1,5 +1,7 @@
-import 'package:disaster_managment_sih/features/OrgSide/OrgDetail/OrgDetailPage.dart';
+import 'package:disaster_managment_sih/features/search/mapscreendemo.dart';
+import 'package:disaster_managment_sih/orgs/OrgDetailPage.dart';
 import 'package:disaster_managment_sih/features/bottomNav/bottomNavBar.dart';
+import 'package:disaster_managment_sih/orgs/homepageorg.dart';
 import 'package:disaster_managment_sih/users/disaster_info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
               fontFamily: 'Montserrat',
               primarySwatch: Colors.blue,
             ),
-            home: const DisasterInfo(),
+            home: const BottomNavBar(),
           );
         });
   }

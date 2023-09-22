@@ -37,8 +37,8 @@ class _DisasterInfoState extends State<DisasterInfo> {
                 decoration: InputDecoration(
                   hintText: "Search Location",
                   border: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color(0xFFF4727A), width: 2.0),
+                      borderSide: const BorderSide(
+                          color: Color(0xFFF4727A), width: 2.0),
                       borderRadius: BorderRadius.circular(10)),
                 ),
                 maxLines: 1,
@@ -46,7 +46,7 @@ class _DisasterInfoState extends State<DisasterInfo> {
               const SizedBox(
                 height: 10,
               ),
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "Type",
@@ -59,7 +59,7 @@ class _DisasterInfoState extends State<DisasterInfo> {
               ),
               SizedBox(
                 child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
                     mainAxisSpacing: 10.0,
                     crossAxisSpacing: 10.0,
@@ -77,20 +77,20 @@ class _DisasterInfoState extends State<DisasterInfo> {
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(width: 1),
                         ),
-                        child: Icon(Icons.water_drop_outlined),
+                        child: const Icon(Icons.water_drop_outlined),
                       ),
                     );
                   },
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               SizedBox(
                   height: 45,
                   width: double.infinity,
                   child: ElevatedButton(
-                      onPressed: () {}, child: Text("Upload Photos")))
+                      onPressed: () {}, child: const Text("Upload Photos")))
             ],
           ),
         ),

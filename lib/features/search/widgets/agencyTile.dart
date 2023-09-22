@@ -1,4 +1,4 @@
-import 'package:disaster_managment_sih/features/OrgSide/OrgDetail/OrgDetailPage.dart';
+import 'package:disaster_managment_sih/orgs/OrgDetailPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
