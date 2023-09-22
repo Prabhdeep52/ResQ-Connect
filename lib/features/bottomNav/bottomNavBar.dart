@@ -1,5 +1,7 @@
 import 'package:disaster_managment_sih/features/SOS/sosScreen.dart';
 import 'package:disaster_managment_sih/features/home/homepage.dart';
+import 'package:disaster_managment_sih/features/profile/profilePage.dart';
+import 'package:disaster_managment_sih/features/search/mapScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -15,16 +17,7 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   var pageIndex = 0;
 
-  final pages = const [
-    HomePage(),
-    SOSscreen(),
-    Center(
-      child: Text("page3"),
-    ),
-    Center(
-      child: Text("page4"),
-    ),
-  ];
+  final pages = const [HomePage(), SOSscreen(), MapScreen(), ProfilePage()];
 
   @override
   Widget build(BuildContext context) {
