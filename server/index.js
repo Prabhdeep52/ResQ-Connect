@@ -18,7 +18,7 @@ const reportSchema = new mongoose.Schema({
   name: String,
   dtype: String,
   description: String,
-  contact: Number,
+  contact: String,
   location: String,
   image: [String],
   date: String,
