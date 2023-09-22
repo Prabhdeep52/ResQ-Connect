@@ -13,6 +13,7 @@ app.get("/", (req, res) => {
   res.send("ResQ API");
 }
 );
+//User Report Schema
 const reportSchema = new mongoose.Schema({
   name: String,
   dtype: String,
@@ -24,7 +25,9 @@ const reportSchema = new mongoose.Schema({
   time: String,
   status: String,
 });
+//User Model
 const Report = mongoose.model("Report", reportSchema);
+//Post request to store the report in database
 app.post("/reportPost", (req, res) => {
   const report = new Report({
     name: req.body.name,
@@ -39,10 +42,12 @@ app.post("/reportPost", (req, res) => {
   });
   report.save();
 });
+//Get request to fetch the reports from database
 app.get("/reportFetch", (req, res) => {
   Report.find().then((reports) => res.json(reports));
 }
 );
+//Organization Schema
 const orgSchema = new mongoose.Schema({
   name: String,
   description: String,
@@ -51,7 +56,9 @@ const orgSchema = new mongoose.Schema({
   location: String,
   logo: String,
 });
+//Organization Model
 const Org = mongoose.model("Org", orgSchema);
+//Post request to store the report in database
 app.post("/orgPost", (req, res) => {
   const org = new Org({
     name: req.body.name,
@@ -63,6 +70,7 @@ app.post("/orgPost", (req, res) => {
   });
   org.save();
 });
+//Get request to fetch the reports from database
 app.get("/orgFetch", (req, res) => {
   Org.find().then((orgs) => res.json(orgs));
 }
