@@ -1,23 +1,32 @@
-import 'package:disaster_managment_sih/features/SOS/sosScreen.dart';
-import 'package:disaster_managment_sih/features/home/homepage.dart';
-import 'package:disaster_managment_sih/features/profile/profilePage.dart';
-import 'package:disaster_managment_sih/features/search/mapScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({super.key});
+class OrgBottomNav extends StatefulWidget {
+  const OrgBottomNav({super.key});
 
   @override
-  State<BottomNavBar> createState() => _BottomNavBarState();
+  State<OrgBottomNav> createState() => _OrgBottomNavState();
 }
 
-class _BottomNavBarState extends State<BottomNavBar> {
+class _OrgBottomNavState extends State<OrgBottomNav> {
   var pageIndex = 0;
 
-  final pages = const [HomePage(), SOSscreen(), MapScreen(), ProfilePage()];
+  final pages = const [
+    Center(
+      child: Text("page1"),
+    ),
+    Center(
+      child: Text("page2"),
+    ),
+    Center(
+      child: Text("page3"),
+    ),
+    Center(
+      child: Text("page4"),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {

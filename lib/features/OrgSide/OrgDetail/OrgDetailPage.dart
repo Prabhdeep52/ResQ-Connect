@@ -1,0 +1,160 @@
+import 'package:disaster_managment_sih/features/OrgSide/OrgDetail/widgets/resoursesTile.dart';
+import 'package:disaster_managment_sih/features/home/widgets/alertTile.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class OrgDetailPage extends StatefulWidget {
+  const OrgDetailPage({super.key});
+
+  @override
+  State<OrgDetailPage> createState() => _OrgDetailPageState();
+}
+
+class _OrgDetailPageState extends State<OrgDetailPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                Container(
+                    height: 250.h,
+                    width: double.maxFinite,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: ExactAssetImage("assets/images/ndrf2.jpg"),
+                        fit: BoxFit.fill,
+                      ),
+                    )),
+                Padding(
+                  padding: EdgeInsets.only(left: 6.w, top: 25.h),
+                  child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.arrow_back,
+                        size: 30.sp,
+                        weight: 50,
+                      )),
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 13.w, top: 25.h),
+              child: Text(
+                "National disaster Relief force",
+                style: TextStyle(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Montserrat-SemiBold"),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 12.w, top: 20.h),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.location_on_outlined,
+                    size: 23.sp,
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Text(
+                    "chennai , India",
+                    style: TextStyle(fontSize: 12.sp),
+                  ),
+                  SizedBox(
+                    width: 115.w,
+                  ),
+                  Icon(
+                    Icons.timer_outlined,
+                    size: 20.sp,
+                  ),
+                  SizedBox(
+                    width: 7.w,
+                  ),
+                  Text(
+                    "20 mins away",
+                    style: TextStyle(fontSize: 12.sp),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 10.w, top: 15.h),
+              height: 1,
+              width: 370.w,
+              decoration:
+                  BoxDecoration(border: Border.all(color: Colors.black)),
+            ),
+            Container(
+              padding: EdgeInsets.only(left: 15.w, top: 20.h),
+              width: 350.w,
+              child: Text(
+                "Contact No : 999999999",
+                style: TextStyle(fontSize: 12.sp),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(left: 15.w, top: 9.h),
+              width: 350.w,
+              child: Text(
+                "Email :  www.ndrf.gov.in",
+                style: TextStyle(fontSize: 12.sp),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 10.w, top: 15.h),
+              height: 1,
+              width: 370.w,
+              decoration:
+                  BoxDecoration(border: Border.all(color: Colors.black)),
+            ),
+            Container(
+              padding: EdgeInsets.only(left: 12.w, top: 20.h),
+              width: 350.w,
+              child: Text(
+                "The National Disaster Response Force (NDRF) is a specialized paramilitary force in India dedicated to disaster response, search and rescue operations, and disaster relief efforts, deployed for both natural and man-made disasters.",
+                style: TextStyle(fontSize: 15.sp),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 10.w, top: 20.h),
+              height: 1,
+              width: 370.w,
+              decoration:
+                  BoxDecoration(border: Border.all(color: Colors.black)),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 12.w, top: 15.h),
+              child: Text(
+                "Resourses to learn",
+                style: TextStyle(
+                  fontSize: 20.sp,
+                  fontFamily: "Montserrat-SemiBold",
+                ),
+              ),
+            ),
+            ListView.builder(
+              physics:
+                  const NeverScrollableScrollPhysics(), // Disable scrolling of this ListView
+              shrinkWrap: true,
+              itemCount: 5,
+              scrollDirection: Axis.vertical,
+              itemBuilder: (context, index) {
+                return InkWell(onTap: () {}, child: const ResoursesTile());
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
