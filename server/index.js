@@ -40,7 +40,13 @@ app.post("/reportPost", (req, res) => {
     time: req.body.time,
     status: req.body.status,
   });
-  report.save();
+  report.save()
+  .catch((error) => {
+    //When there are errors We handle them here
+    console.log(err);
+    res.send(400, "Bad Request");
+
+});
 });
 //Get request to fetch the reports from database
 app.get("/reportFetch", (req, res) => {
@@ -68,7 +74,13 @@ app.post("/orgPost", (req, res) => {
     location: req.body.location,
     logo: req.body.logo,
   });
-  org.save();
+  org.save()
+  .catch((error) => {
+    //When there are errors We handle them here
+    console.log(err);
+    res.send(400, "Bad Request");
+
+});
 });
 //Get request to fetch the reports from database
 app.get("/orgFetch", (req, res) => {
