@@ -66,8 +66,8 @@ class SOSscreen extends StatelessWidget {
             },
             child: GestureDetector(
               onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const DisasterInfo()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const DisasterInfo()));
               },
               child: const Center(
                 child: AvatarGlow(
@@ -79,7 +79,7 @@ class SOSscreen extends StatelessWidget {
                   showTwoGlows: true,
                   child: CircleAvatar(
                       backgroundColor: Color(0xFFF4727A),
-                      radius: 45,
+                      radius: 55,
                       child: Text(
                         "SOS",
                         style: TextStyle(

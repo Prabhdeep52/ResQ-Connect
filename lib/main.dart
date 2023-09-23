@@ -1,13 +1,7 @@
-
 import 'package:disaster_managment_sih/auth/auth_service.dart';
 import 'package:disaster_managment_sih/features/bottomNav/bottomNavBar.dart';
 import 'package:disaster_managment_sih/firebase_options.dart';
-
-import 'package:disaster_managment_sih/features/search/mapscreendemo.dart';
-import 'package:disaster_managment_sih/orgs/OrgDetailPage.dart';
-import 'package:disaster_managment_sih/features/bottomNav/bottomNavBar.dart';
-import 'package:disaster_managment_sih/orgs/homepageorg.dart';
-
+import 'package:disaster_managment_sih/orgs/registerOrgScreen.dart';
 import 'package:disaster_managment_sih/users/disaster_info_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

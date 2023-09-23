@@ -166,7 +166,7 @@ class _OrgDetailPageState extends State<OrgDetailPage> {
             Padding(
               padding: EdgeInsets.only(left: 14.w, top: 15.h),
               child: Text(
-                "Click to go to location",
+                "Click to view location",
                 style: TextStyle(
                     fontSize: 23.sp,
                     fontFamily: "Montserrat-SemiBold",

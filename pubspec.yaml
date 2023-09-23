@@ -40,10 +40,17 @@ dependencies:
 
   provider: ^6.0.5
 
-
+  http: ^0.13.3
+  intl: ^0.17.0
+  carousel_slider: ^4.2.1
+  dotted_border: ^2.0.0+3
   dio: ^5.3.3  
   flutter_polyline_points: ^1.0.0
   google_maps_flutter: ^2.2.2
+  device_info: ^2.0.3  # Add the latest version of device_info
+  permission_handler: ^11.0.0  # Add the latest version of permission_handler
+  image_picker: ^0.8.4+4
+  multiple_images_picker: ^1.0.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0
