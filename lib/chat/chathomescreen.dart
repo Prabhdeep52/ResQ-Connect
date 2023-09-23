@@ -1,0 +1,77 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+
+import 'chatpage.dart';
+
+class ChatScreen extends StatefulWidget {
+  const ChatScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
+        title: const Text("ResQ Chat"),
+      ),
+      body: _buildUserList(),
+    );
+  }
+
+  Widget _buildUserList() {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection("users").snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return const Text("Error");
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        final docs = snapshot.data?.docs ?? [];
+        return ListView.builder(
+          itemCount: docs.length,
+          itemBuilder: (context, index) {
+            final data = docs[index].data() as Map<String, dynamic>;
+            if (_auth.currentUser?.email != data["email"]) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListTile(
+                  leading: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          "https://nationaltoday.com/wp-content/uploads/2022/05/74-Robert-Pattinson.jpg.webp")),
+                  title: Text(
+                    data["email"] ?? ' ',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChatPage(
+                          receiverId: data["uid"] ?? '',
+                          receiverUserEmail: data["email"] ?? '',
+                        ),
+                      ),
+                    );
+                  },
+                  tileColor: Color.fromARGB(255, 255, 255, 255),
+                ),
+              );
+            } else {
+              return Container();
+            }
+          },
+        );
+      },
+    );
+  }
+}

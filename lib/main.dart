@@ -8,9 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import 'chat/chathomescreen.dart';
 import 'features/authScreens/landingscreen.dart';
 import 'features/authScreens/signuppage.dart';
 import 'features/home/homepage.dart';
+import 'landingpage.dart';
+import 'location_services.dart/location_service.dart';
 import 'orgs/navpageorg.dart';
 import 'orgs/signupPage.dart';
 
@@ -45,10 +48,10 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'SIH App',
             theme: ThemeData(
-              fontFamily: 'Montserrat',
+              // fontFamily: 'Montserrat',
               primarySwatch: Colors.blue,
             ),
-            home: const BottomNavBar(),
+            home: const LandingPage(),
           );
         });
   }
