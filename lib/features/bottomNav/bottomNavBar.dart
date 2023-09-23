@@ -7,6 +7,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../pages/aboutpage.dart';
+
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
 
@@ -17,7 +19,15 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   var pageIndex = 0;
 
-  final pages = const [HomePage(), SOSscreen(), MapScreen(), ProfilePage()];
+
+  final pages = const [
+    HomePage(),
+    SOSscreen(),
+     MapScreen()
+    AboutPageUser(),
+  ];
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -82,15 +92,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     });
                   },
                   icon: pageIndex == 2
-                      ? Image.asset(
-                          "assets/icons/menu.png",
+                      ? Icon(
+                          Icons.location_on_outlined,
                           color: Colors.black,
-                          height: 35.h,
+                          size: 35.h,
                         )
-                      : Image.asset(
-                          "assets/icons/menu.png",
+                      : Icon(
+                          Icons.location_on_outlined,
                           color: Colors.grey,
-                          height: 35.h,
+                          size: 35.h,
                         )),
               IconButton(
                   enableFeedback: false,
