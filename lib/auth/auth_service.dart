@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -5,12 +6,20 @@ import 'package:flutter/material.dart';
 class AuthService extends ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  Future<UserCredential> signInWithEmailandPassword(
-      String email, String password) async {
+  //instance of firestore
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<void> signInWithEmailandPassword(String email, String password) async {
     try {
       UserCredential userCredential = await _firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
-      return userCredential;
+
+      //add new doc for user in users collection
+      // _firestore.collection('users').doc(userCredential.user!.uid).set(
+      //     {"uid": userCredential.user!.uid, email: email, password: password,username:username});
+      // SetOptions(merge: true);
+      // return userCredential;
     } on FirebaseAuthException catch (e) {
       throw Exception(e.code);
     }
@@ -21,13 +30,28 @@ class AuthService extends ChangeNotifier {
     return await FirebaseAuth.instance.signOut();
   }
 
-  Future<UserCredential> signUpWithEmailPassword(String email, password) async {
+  Future<void> signUpWithEmailPassword(
+      String email, String password, String username) async {
     try {
-      UserCredential userCredntial = await _firebaseAuth
+      UserCredential userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
-      return userCredntial;
+
+      //after user is created
+      await _firestore.collection('users').doc(userCredential.user!.uid).set({
+        'uid': userCredential.user!.uid,
+        'email': email,
+        'password': password,
+        'username': username,
+      });
     } on FirebaseAuthException catch (e) {
       throw Exception(e.code);
     }
   }
+
+//   void saveUsernameToDatabase(String uid, String username) {
+//   FirebaseFirestore.instance.collection('users').doc(uid).set({
+//     'username': username,
+//     // Add other user data if needed
+//   });
+// }
 }

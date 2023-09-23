@@ -17,7 +17,7 @@ class SignUpOrg extends StatefulWidget {
 }
 
 class _SignUpOrgState extends State<SignUpOrg> {
-  final TextEditingController empIdController = TextEditingController();
+  final TextEditingController userNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController cnfmpassController = TextEditingController();
@@ -28,14 +28,17 @@ class _SignUpOrgState extends State<SignUpOrg> {
           const SnackBar(content: Text("Passwords do not Match! ")));
       return;
     }
+    if (userNameController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Passwords do not Match! ")));
+      return;
+    }
 
     final authService = Provider.of<AuthService>(context, listen: false);
 
     try {
-      await authService.signUpWithEmailPassword(
-        emailController.text,
-        passwordController.text,
-      );
+      await authService.signUpWithEmailPassword(emailController.text,
+          passwordController.text, userNameController.text);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -64,7 +67,7 @@ class _SignUpOrgState extends State<SignUpOrg> {
   @override
   void dispose() {
     super.dispose();
-    empIdController.dispose();
+    userNameController.dispose();
     emailController.dispose();
     passwordController.dispose();
   }
@@ -106,8 +109,8 @@ class _SignUpOrgState extends State<SignUpOrg> {
           ),
           CustomTextField(
             maxLines: 1,
-            controller: empIdController,
-            text1: "Empployee Id",
+            controller: userNameController,
+            text1: "Username",
           ),
           CustomTextField(
             maxLines: 1,

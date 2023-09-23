@@ -1,76 +1,46 @@
 import 'package:disaster_managment_sih/auth/auth_service.dart';
 import 'package:disaster_managment_sih/features/bottomNav/bottomNavBar.dart';
+
 import 'package:disaster_managment_sih/features/home/widgets/customtextfield.dart';
-import 'package:disaster_managment_sih/orgs/homepageorg.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:disaster_managment_sih/orgs/signUpPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import 'loginpage.dart';
-
-
-
-class SignUpOrg extends StatefulWidget {
-  const SignUpOrg({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<SignUpOrg> createState() => _SignUpOrgState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _SignUpOrgState extends State<SignUpOrg> {
-  final TextEditingController userNameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
+class _LoginPageState extends State<LoginPage> {
+  //final TextEditingController empIdController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController cnfmpassController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
-  void signUp() async {
-    if (passwordController.text != cnfmpassController.text) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Passwords do not Match! ")));
-      return;
-    }
-    if (userNameController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Passwords do not Match! ")));
-      return;
-    }
-
+  void signIn() async {
     final authService = Provider.of<AuthService>(context, listen: false);
-
     try {
-      await authService.signUpWithEmailPassword(emailController.text,
-          passwordController.text, userNameController.text);
+      await authService.signInWithEmailandPassword(
+          emailController.text, passwordController.text);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => const BottomNavBar(),
         ),
       );
-      print("sign up success");
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            e.toString(),
-          ),
-        ),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
-  //   void signUpUser() async {
-  //   FirebaseAuthMethods(FirebaseAuth.instance).signUpWithEmail(
-  //     email: emailController.text,
-  //     password: passwordController.text,
-  //     context: context,
-  //   );
-  // }
 
   @override
   void dispose() {
     super.dispose();
-    userNameController.dispose();
     emailController.dispose();
+
     passwordController.dispose();
   }
 
@@ -82,13 +52,6 @@ class _SignUpOrgState extends State<SignUpOrg> {
           child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(children: [
-          // const Text(
-          //   "Greetings,",
-          //   style: TextStyle(
-          //       fontFamily: "Montserrat",
-          //       fontSize: 28,
-          //       fontWeight: FontWeight.bold),
-          // ),
           Container(
             height: 200,
             width: 200,
@@ -101,18 +64,13 @@ class _SignUpOrgState extends State<SignUpOrg> {
             child: Align(
               alignment: Alignment.topLeft,
               child: Text(
-                "Sign Up",
+                "Log In",
                 style: TextStyle(
                     fontFamily: "Montserrat",
                     fontSize: 16,
                     fontWeight: FontWeight.bold),
               ),
             ),
-          ),
-          CustomTextField(
-            maxLines: 1,
-            controller: userNameController,
-            text1: "Username",
           ),
           CustomTextField(
             maxLines: 1,
@@ -124,13 +82,8 @@ class _SignUpOrgState extends State<SignUpOrg> {
             controller: passwordController,
             text1: "Password",
           ),
-          CustomTextField(
-            maxLines: 1,
-            controller: cnfmpassController,
-            text1: "Confirm Password",
-          ),
           SizedBox(
-            height: 90.h,
+            height: 100.h,
           ),
           Padding(
             padding: const EdgeInsets.all(6.0),
@@ -141,7 +94,7 @@ class _SignUpOrgState extends State<SignUpOrg> {
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFF4727A)),
                     onPressed: () {
-                      signUp();
+                      signIn();
                     },
                     child: const Text(
                       "Continue",
@@ -154,14 +107,14 @@ class _SignUpOrgState extends State<SignUpOrg> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("Already have an account?"),
+              const Text("New To ResQ? Sign Up"),
               TextButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const LoginPage()));
+                        builder: (context) => const SignUpOrg()));
                   },
                   child: const Text(
-                    "Sign In",
+                    "Sign Up",
                     style: TextStyle(
                         color: Color(
                           0xFFF4727A,

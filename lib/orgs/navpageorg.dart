@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../chat/chathomescreen.dart';
 import 'aboutpageorg.dart';
 import 'homepageorg.dart';
 import 'maporg.dart';
@@ -19,14 +20,13 @@ class BottomNavBarOrg extends StatefulWidget {
 class _BottomNavBarOrgState extends State<BottomNavBarOrg> {
   var pageIndex = 0;
 
-  final pages =  [
+  final pages = [
     HomePageOrg(),
-    MapPageOrg(),
-
-    AboutPageOrg(),
+    ChatScreen(),
     Center(
       child: Text("page4"),
     ),
+    AboutPageOrg()
   ];
 
   @override
@@ -74,15 +74,15 @@ class _BottomNavBarOrgState extends State<BottomNavBarOrg> {
                     });
                   },
                   icon: pageIndex == 1
-                      ? Image.asset(
-                          "assets/icons/alert.png",
+                      ? Icon(
+                          Icons.chat_bubble_outline,
                           color: Colors.black,
-                          height: 35.h,
+                          size: 30,
                         )
-                      : Image.asset(
-                          "assets/icons/alert.png",
+                      : Icon(
+                          Icons.chat_bubble_outline,
                           color: Colors.grey,
-                          height: 35.h,
+                          size: 30,
                         )),
               IconButton(
                   enableFeedback: false,
@@ -92,15 +92,15 @@ class _BottomNavBarOrgState extends State<BottomNavBarOrg> {
                     });
                   },
                   icon: pageIndex == 2
-                      ? Image.asset(
-                          "assets/icons/menu.png",
+                      ? Icon(
+                          Icons.location_on_outlined,
                           color: Colors.black,
-                          height: 35.h,
+                          size: 35.h,
                         )
-                      : Image.asset(
-                          "assets/icons/menu.png",
+                      : Icon(
+                          Icons.location_on_outlined,
                           color: Colors.grey,
-                          height: 35.h,
+                          size: 35.h,
                         )),
               IconButton(
                   enableFeedback: false,

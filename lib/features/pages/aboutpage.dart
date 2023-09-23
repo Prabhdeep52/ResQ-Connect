@@ -1,25 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class AboutPageOrg extends StatefulWidget {
-  const AboutPageOrg({Key? key}) : super(key: key);
+class AboutPageUser extends StatefulWidget {
+  const AboutPageUser({Key? key}) : super(key: key);
 
   @override
-  _AboutPageOrgState createState() => _AboutPageOrgState();
+  _AboutPageUserState createState() => _AboutPageUserState();
 }
 
-class _AboutPageOrgState extends State<AboutPageOrg> {
-  String? username;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   fetchUsername();
-  // }
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
+class _AboutPageUserState extends State<AboutPageUser> {
   List<String> aboutList = [
     "Location Service",
     "Notifications",
@@ -29,7 +17,7 @@ class _AboutPageOrgState extends State<AboutPageOrg> {
     "Settings",
   ];
 
-  List<IconData> iconList = [
+  List<IconData> iconlist = [
     Icons.location_on,
     Icons.notifications_outlined,
     Icons.grid_view_outlined,
@@ -38,7 +26,7 @@ class _AboutPageOrgState extends State<AboutPageOrg> {
     Icons.settings_outlined
   ];
 
-  List<Color> colors = const [
+  List<Color> color = const [
     Colors.green,
     Colors.pink,
     Colors.blue,
@@ -71,9 +59,9 @@ class _AboutPageOrgState extends State<AboutPageOrg> {
               ),
             ),
             const SizedBox(height: 20),
-            Text(
-              username != null ? username! : 'Robert',
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            const Text(
+              "Robert Pattison",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             const SizedBox(height: 20),
             Expanded(
@@ -96,14 +84,20 @@ class _AboutPageOrgState extends State<AboutPageOrg> {
                         leading: CircleAvatar(
                           backgroundColor: Color.fromARGB(255, 240, 240, 239),
                           child: Icon(
-                            iconList[index],
+                            iconlist[index],
                             color: Color.fromARGB(255, 36, 35, 35),
                           ),
                         ),
                         title: Text(
                           aboutList[index],
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
+                        // trailing: IconButton(
+                        //   onPressed: () {
+                        //     _onEditButtonPressed(index);
+                        //   },
+                        //   icon: const Icon(Icons.edit_outlined),
+                        // ),
                       ),
                     );
                   },
@@ -114,5 +108,12 @@ class _AboutPageOrgState extends State<AboutPageOrg> {
         ),
       ),
     );
+  }
+
+  void _onEditButtonPressed(int index) {
+    setState(() {
+      // Update the property associated with the tapped item (e.g., aboutList).
+      // For demonstration purposes, we'll simply append " Edited" to the item.
+    });
   }
 }
