@@ -95,12 +95,12 @@ class _HomePageState extends State<HomePage> {
           ),
           ListView.builder(
             physics:
-                NeverScrollableScrollPhysics(), // Disable scrolling of this ListView
+                const NeverScrollableScrollPhysics(), // Disable scrolling of this ListView
             shrinkWrap: true,
             itemCount: 5,
             scrollDirection: Axis.vertical,
             itemBuilder: (context, index) {
-              return AlertTile();
+              return InkWell(onTap: () {}, child: AlertTile());
             },
           )
         ],

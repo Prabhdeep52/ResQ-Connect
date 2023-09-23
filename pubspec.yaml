@@ -38,9 +38,16 @@ dependencies:
   firebase_core: ^2.16.0
   flutter:
     sdk: flutter
+
   fluttertoast: ^8.2.2
   geolocator: ^10.1.0
+
   provider: ^6.0.5
+
+
+  dio: ^5.3.3  
+  flutter_polyline_points: ^1.0.0
+  google_maps_flutter: ^2.2.2
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -77,6 +84,9 @@ flutter:
     - family: Montserrat
       fonts:
         - asset: assets/fonts/Montserrat/static/Montserrat-Light.ttf
+    - family: Montserrat-SemiBold
+      fonts:
+        - asset: assets/fonts/Montserrat/static/Montserrat-SemiBold.ttf    
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
