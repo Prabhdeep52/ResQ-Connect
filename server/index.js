@@ -1,32 +1,19 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+import express from 'express';
+import bodyParser from 'body-parser';
+import connect from './database/conn.js';
+
 const app = express();
-const mongoose = require('mongoose');
-const mongoURL = "mongodb+srv://ayushawasthi468:SixtyNine420!@cluster0.cr220yd.mongodb.net/userDB";
 app.use(bodyParser.json());
-async function main() {
-  await mongoose.connect(mongoURL);
-  console.log(mongoose.connection.readyState)
-}
-main().catch(err => console.log(err));
+connect().catch(err => console.log(err));
+
 app.get("/", (req, res) => {
   res.send("ResQ API");
 }
 );
-//User Report Schema
-const reportSchema = new mongoose.Schema({
-  name: String,
-  dtype: String,
-  description: String,
-  contact: String,
-  location: String,
-  image: [String],
-  date: String,
-  time: String,
-  status: String,
-});
-//User Model
-const Report = mongoose.model("Report", reportSchema);
+
+//import report model
+import Report from "./model/report.model.js";
+
 //Post request to store the report in database
 app.post("/reportPost", (req, res) => {
   const report = new Report({
@@ -41,31 +28,23 @@ app.post("/reportPost", (req, res) => {
     status: req.body.status,
   });
   report.save()
-  .catch((error) => {
-    //When there are errors We handle them here
-    console.log(error);
-    res.send(400, "Bad Request")
-    .then(() => res.send("Report added successfully"));
+    .catch((error) => {
+      //When there are errors We handle them here
+      console.log(error);
+      res.send(400, "Bad Request")
+    })
+    .then(() => res.json("Report added successfully."));
 
-});
 });
 //Get request to fetch the reports from database
 app.get("/reportFetch", (req, res) => {
   Report.find().then((reports) => res.json(reports));
 }
 );
-//Organization Schema
-const orgSchema = new mongoose.Schema({
-  name: String,
-  description: String,
-  orgtype: String,
-  contact: Number,
-  location: String,
-  logo: String,
-});
-//Organization Model
-const Org = mongoose.model("Org", orgSchema);
-//Post request to store the report in database
+//import org model
+import Org from "./model/org.model.js";
+
+//Post request to store the org details in database
 app.post("/orgPost", (req, res) => {
   const org = new Org({
     name: req.body.name,
@@ -74,15 +53,16 @@ app.post("/orgPost", (req, res) => {
     contact: req.body.contact,
     location: req.body.location,
     logo: req.body.logo,
+    image: req.body.image,
   });
   org.save()
   .catch((error) => {
     //When there are errors We handle them here
     console.log(error);
     res.send(400, "Bad Request")
-    .then(() => res.send("Organization added successfully"));
+  })
+  .then(() => res.json("Organisation added successfully."));
 
-});
 });
 //Get request to fetch the reports from database
 app.get("/orgFetch", (req, res) => {
