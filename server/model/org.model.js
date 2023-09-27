@@ -6,9 +6,8 @@ const orgSchema = new mongoose.Schema({
     description: String,
     orgtype: String,
     contact: Number,
-    image: String,
     location: String,
-    logo: String,
+    logo: String
   });
     //Organization Model
     export default mongoose.model.orgs || mongoose.model("Org", orgSchema);
