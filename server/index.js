@@ -54,11 +54,12 @@ app.post('/reportPost', upload.single('image'), async (req, res) => {
       dtype: req.body.dtype || '', 
       description: req.body.description || '',
       contact: req.body.contact || '',
-      location: req.body.location || '',
+      lat: req.body.lat || '',
+      long: req.body.long || '',
       image: imageUrl,
       date: req.body.date || '',
       time: req.body.time || '',
-      status: req.body.status || '',
+      status: 'Ongoing',
     });
 
     // Save the report to MongoDB
@@ -103,7 +104,8 @@ app.post('/orgPost', upload.single('image'), async (req, res) => {
         description: req.body.description || '',
         orgtype: req.body.orgtype || '',
         contact: req.body.contact || '',
-        location: req.body.location || '',
+        lat: req.body.lat || '',
+        long: req.body.long || '',
         logo: imageUrl
       });
     
@@ -150,3 +152,11 @@ app.get('/reportFetch/:date', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+
+//Edit report
+
+//Change report status from ongoing to closed
+
+
+  
