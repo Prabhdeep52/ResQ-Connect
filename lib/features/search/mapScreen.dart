@@ -4,7 +4,7 @@ import 'package:disaster_managment_sih/features/search/searchResultScreen.dart';
 import 'package:disaster_managment_sih/features/search/widgets/CustomTextField.dart';
 import 'package:disaster_managment_sih/features/search/widgets/FiltersScreen.dart';
 import 'package:disaster_managment_sih/features/search/widgets/agencyTile.dart';
-import 'package:disaster_managment_sih/orgs/loginorg.dart';
+import 'package:disaster_managment_sih/auth/screens/orgSide/loginPageorg.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -128,7 +128,7 @@ class _MapScreenState extends State<MapScreen> {
                                 },
                                 child: Chip(
                                   backgroundColor: selectedCateg == categ
-                                      ? const Color.fromARGB(255, 133, 101, 178)
+                                      ? Color(0xFFF4727A)
                                       : Colors.white,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8),
@@ -179,7 +179,7 @@ class _MapScreenState extends State<MapScreen> {
                                 },
                                 child: Chip(
                                   backgroundColor: selectedCateg2 == categ2
-                                      ? const Color.fromARGB(255, 133, 101, 178)
+                                      ? Color(0xFFF4727A)
                                       : Colors.white,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8),
@@ -198,12 +198,13 @@ class _MapScreenState extends State<MapScreen> {
                       ),
                       Column(
                         children: <Widget>[
-                          Text('Distance: $_currentValue km'),
+                          Text(
+                              'Distance: ${_currentValue.toStringAsFixed(2)} km'),
                           Slider(
-                            activeColor: Color.fromARGB(255, 133, 101, 178),
+                            activeColor: Color(0xFFF4727A),
                             value: _currentValue,
                             min: 0.0, // Minimum value for the slider
-                            max: 10.0, // Maximum value for the slider
+                            max: 100.0, // Maximum value for the slider
                             onChanged: (double value) {
                               setState(() {
                                 _currentValue = value;
@@ -220,8 +221,7 @@ class _MapScreenState extends State<MapScreen> {
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 minimumSize: Size(double.infinity, 50),
-                                backgroundColor:
-                                    const Color.fromARGB(255, 133, 101, 178),
+                                backgroundColor: Color(0xFFF4727A),
                               ),
                               onPressed: () {},
                               child: const Text(

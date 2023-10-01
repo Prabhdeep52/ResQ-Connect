@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import './services/reportsServices.dart';
@@ -18,6 +20,8 @@ class HomePageOrg extends StatefulWidget {
 class _HomePageOrgState extends State<HomePageOrg> {
   String description = '';
   List<dynamic> data = [];
+  // final _dataStreamController = StreamController<List<dynamic>>.broadcast();
+  // Stream<List<dynamic>> get dataStream => _dataStreamController.stream;
 
   @override
   void initState() {
@@ -107,99 +111,254 @@ class _HomePageOrgState extends State<HomePageOrg> {
               SizedBox(
                 height: 20.h,
               ),
-              if (data.length != 0)
+              if (data.isNotEmpty)
                 ListView.builder(
                   scrollDirection: Axis.vertical,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: data.length,
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
                       onTap: () {},
-                      child: Container(
-                        padding: EdgeInsets.only(
-                          left: 2.w,
-                          bottom: 20.h,
-                          top: 10.h,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    // "Food Shortage",
-                                    data[index]["dtype"] ?? "Disaster",
-                                    style: TextStyle(
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20.sp),
-                                  ),
-                                  SizedBox(
-                                    height: 6.h,
-                                  ),
-                                  SizedBox(
-                                    height: 50.h,
-                                    width: 180.w,
-                                    child: Text(
-                                      // "The area is flooded with water and people are stuck",
-                                      data[index]["description"] ??
-                                          "description",
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(
+                              left: 2.w,
+                              bottom: 12.h,
+                              top: 2.h,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      // "Food Shortage",
+                                      data[index]["dtype"] ?? "Disaster type",
+                                      // data[index]["description"] ??
+                                      //     "description",
                                       style: TextStyle(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w400,
+                                          fontFamily: "Montserrat",
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20.sp),
+                                    ),
+                                    SizedBox(
+                                      height: 6.h,
+                                    ),
+                                    SizedBox(
+                                      height: 15.h,
+                                      width: 180.w,
+                                      child: Text(
+                                        // "The area is flooded with water and people are stuck",
+                                        "Description: ${data[index]["description"]} ",
+                                        style: TextStyle(
+                                          fontSize: 10.sp,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 12.h,
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.location_pin,
-                                        size: 14,
+                                    SizedBox(
+                                      height: 2.h,
+                                    ),
+                                    SizedBox(
+                                      height: 15.h,
+                                      width: 180.w,
+                                      child: Text(
+                                        // "The area is flooded with water and people are stuck",
+                                        "Reported by : ${data[index]["name"]} ",
+                                        style: TextStyle(
+                                          fontSize: 10.sp,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
-                                      const SizedBox(
-                                        width: 4,
+                                    ),
+                                    SizedBox(
+                                      height: 2.h,
+                                    ),
+                                    SizedBox(
+                                      height: 20.h,
+                                      width: 180.w,
+                                      child: Text(
+                                        // "The area is flooded with water and people are stuck",
+                                        "Contact : ${data[index]["contact"]} ",
+                                        style: TextStyle(
+                                          fontSize: 10.sp,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
-                                      Text(
-                                        data[index]["location"] ?? "location ",
-                                      ),
-                                      Text(data[index]["date"] ??
-                                          " date " + data[index][" time"] ??
-                                          " time ")
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                width: 40.w,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(right: 10.w),
-                                child: SizedBox(
-                                  width: 110.w,
-                                  child: Image.asset(
-                                    "assets/images/AmericanFlag.png",
+                                    ),
+                                    SizedBox(
+                                      height: 2.h,
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.location_pin,
+                                          size: 14,
+                                        ),
+                                        const SizedBox(
+                                          width: 4,
+                                        ),
+                                        Text(
+                                          data[index]["location"] ??
+                                              "location ",
+                                        ),
+                                        SizedBox(
+                                          width: 30.w,
+                                        ),
+                                        Text(data[index]["date"] ??
+                                            " date " + data[index][" time"] ??
+                                            " time ")
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  width: 40.w,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: 10.w),
+                                  child: SizedBox(
+                                    height: 100.h,
+                                    width: 110.w,
+                                    child: Image.network(
+                                      data[index]["image"],
+                                      fit: BoxFit.fill,
+                                    ),
+                                    // child: Image.asset(
+                                    //   "assets/images/AmericanFlag.png",
+                                    // ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 20.w),
+                            child: Divider(
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                        ],
                       ),
                     );
                   },
                 ),
-              if (data.length == 0)
+              if (data.isEmpty)
                 Container(
                   padding: EdgeInsets.only(top: 150.h),
-                  child: Text("No reported disasters "),
+                  child: const Text("No reported disasters "),
                 )
+              // StreamBuilder<List<Map<String, dynamic>>>(
+              //   stream: dataStream, // Replace with your actual data stream
+              //   builder: (BuildContext context,
+              //       AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+              //     if (snapshot.connectionState == ConnectionState.waiting) {
+              //       // You can show a loading indicator here if needed.
+              //       return CircularProgressIndicator();
+              //     } else if (snapshot.hasError) {
+              //       // Handle error state
+              //       return Text("Error: ${snapshot.error}");
+              //     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              //       // Handle the case when there is no data
+              //       return Container(
+              //         padding: EdgeInsets.only(top: 150.h),
+              //         child: Text("No reported disasters"),
+              //       );
+              //     } else {
+              //       return ListView.builder(
+              //         scrollDirection: Axis.vertical,
+              //         physics: NeverScrollableScrollPhysics(),
+              //         shrinkWrap: true,
+              //         itemCount: snapshot.data!.length,
+              //         itemBuilder: (BuildContext context, int index) {
+              //           final data = snapshot.data[index];
+              //           return InkWell(
+              //             onTap: () {},
+              //             child: Container(
+              //               padding: EdgeInsets.only(
+              //                 left: 2.w,
+              //                 bottom: 20.h,
+              //                 top: 10.h,
+              //               ),
+              //               child: Padding(
+              //                 padding: const EdgeInsets.all(8.0),
+              //                 child: Row(
+              //                   mainAxisAlignment:
+              //                       MainAxisAlignment.spaceAround,
+              //                   children: [
+              //                     Column(
+              //                       crossAxisAlignment:
+              //                           CrossAxisAlignment.start,
+              //                       children: [
+              //                         Text(
+              //                           data["dtype"] ?? "Disaster",
+              //                           style: TextStyle(
+              //                             fontFamily: "Montserrat",
+              //                             fontWeight: FontWeight.bold,
+              //                             fontSize: 20.sp,
+              //                           ),
+              //                         ),
+              //                         SizedBox(
+              //                           height: 6.h,
+              //                         ),
+              //                         SizedBox(
+              //                           height: 50.h,
+              //                           width: 180.w,
+              //                           child: Text(
+              //                             data["description"] ?? "description",
+              //                             style: TextStyle(
+              //                               fontSize: 12.sp,
+              //                               fontWeight: FontWeight.w400,
+              //                             ),
+              //                           ),
+              //                         ),
+              //                         SizedBox(
+              //                           height: 12.h,
+              //                         ),
+              //                         Row(
+              //                           children: [
+              //                             const Icon(
+              //                               Icons.location_pin,
+              //                               size: 14,
+              //                             ),
+              //                             const SizedBox(
+              //                               width: 4,
+              //                             ),
+              //                             Text(data["location"] ?? "location "),
+              //                             Text(
+              //                               data["date"] ??
+              //                                   " date " + data["time"] ??
+              //                                   " time ",
+              //                             ),
+              //                           ],
+              //                         ),
+              //                       ],
+              //                     ),
+              //                     SizedBox(
+              //                       width: 40.w,
+              //                     ),
+              //                     Padding(
+              //                       padding: EdgeInsets.only(right: 10.w),
+              //                       child: SizedBox(
+              //                         width: 110.w,
+              //                         child: Image.asset(
+              //                           "assets/images/AmericanFlag.png",
+              //                         ),
+              //                       ),
+              //                     ),
+              //                   ],
+              //                 ),
+              //               ),
+              //             ),
+              //           );
+              //         },
+              //       );
+              //     }
+              //   },
+              // )
             ],
           ),
         ),

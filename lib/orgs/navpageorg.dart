@@ -1,5 +1,7 @@
 import 'package:disaster_managment_sih/features/SOS/sosScreen.dart';
 import 'package:disaster_managment_sih/features/home/homepage.dart';
+import 'package:disaster_managment_sih/features/search/mapScreen.dart';
+import 'package:disaster_managment_sih/features/search/mapscreendemo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -20,14 +22,7 @@ class BottomNavBarOrg extends StatefulWidget {
 class _BottomNavBarOrgState extends State<BottomNavBarOrg> {
   var pageIndex = 0;
 
-  final pages = [
-    HomePageOrg(),
-    ChatScreen(),
-    Center(
-      child: Text("page4"),
-    ),
-    AboutPageOrg()
-  ];
+  final pages = [HomePageOrg(), ChatScreen(), MapScreen(), AboutPageOrg()];
 
   @override
   Widget build(BuildContext context) {

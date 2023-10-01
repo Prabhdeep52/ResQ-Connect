@@ -1,5 +1,8 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:disaster_managment_sih/features/bottomNav/bottomNavBar.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:disaster_managment_sih/features/SOS/sosService/service.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +25,8 @@ class MoreInfoOrg extends StatefulWidget {
 }
 
 String _selectedDisasterType = 'Earthquake';
+late File pickedImageFile;
+List<File> images = [];
 final List<String> _disasterTypes = [
   'Earthquake',
   'Flood',
@@ -37,37 +42,85 @@ final List<String> _disasterTypes = [
 class _MoreInfoOrgState extends State<MoreInfoOrg> {
   final TextEditingController detailsController = TextEditingController();
   final TextEditingController contactController = TextEditingController();
+  late String latitude = "";
+  late String longitude = "";
 
-  List<Asset> imagesList = <Asset>[];
+  List<File> imagesList = <File>[];
   String _error = 'No Error Detected';
   final _formKey = GlobalKey<FormState>();
-  Future<void> loadAssets() async {
-    List<Asset> resultList = <Asset>[];
-    String error = 'No Error Detected';
+  bool _isLoading = false;
+  void addImages() async {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
 
-    try {
-      resultList = await MultipleImagesPicker.pickImages(
-        maxImages: 300,
-        enableCamera: true,
-        selectedAssets: imagesList,
-        cupertinoOptions: const CupertinoOptions(takePhotoIcon: "chat"),
-        materialOptions: const MaterialOptions(
-          actionBarColor: "#4CAF50",
-          actionBarTitle: "Select Images",
-          allViewTitle: "All Images",
-          useDetailsView: false,
-          selectCircleStrokeColor: "#8BC34A",
-        ),
-      );
-    } on Exception catch (e) {
-      error = e.toString();
+    if (pickedImage == null) {
+      return;
     }
-    if (!mounted) return;
 
     setState(() {
-      imagesList = resultList;
-      _error = error;
+      pickedImageFile = File(pickedImage.path);
+      // images = pickedImageFile;
+      images.add(pickedImageFile);
     });
+  }
+
+  Future<Position?> _getCurrentLocation() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      throw Exception("Service not enabled");
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        throw Exception("Location permissoion permanently");
+      }
+      if (permission == LocationPermission.deniedForever) {
+        throw Exception("Location permissoion permanently denied");
+      }
+
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      setState(() {
+        latitude = "${position.latitude}";
+        longitude = "${position.longitude}";
+      });
+    }
+    if (permission == LocationPermission.whileInUse) {
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      setState(() {
+        latitude = "${position.latitude}";
+        longitude = "${position.longitude}";
+      });
+    }
+
+    print(latitude);
+    print(longitude);
+  }
+
+  void getLocation() {
+    _getCurrentLocation();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    images.clear();
+    detailsController.dispose();
+    contactController.dispose();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getLocation();
   }
 
   @override
@@ -80,18 +133,52 @@ class _MoreInfoOrgState extends State<MoreInfoOrg> {
         child: Form(
           key: _formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Details",
-                style: TextStyle(
-                  fontFamily: "Montserrat",
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
+              SizedBox(
+                height: 5,
+              ),
+              IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+              SizedBox(
+                height: 15,
+              ),
+              Center(
+                child: const Text(
+                  "Details",
+                  style: TextStyle(
+                    fontFamily: "Montserrat",
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               const SizedBox(
                 height: 40,
               ),
+              images.isNotEmpty
+                  ? Container(
+                      padding: EdgeInsets.only(bottom: 15),
+                      child: CarouselSlider(
+                          items: images.map((e) {
+                            return Builder(
+                                builder: ((BuildContext context) => Image.file(
+                                      e,
+                                      fit: BoxFit.cover,
+                                      height: 200,
+                                    )));
+                          }).toList(),
+                          options: CarouselOptions(
+                            viewportFraction: 1,
+                            height: 210,
+                          )),
+                    )
+                  : const SizedBox(
+                      height: 1,
+                    ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
@@ -152,52 +239,79 @@ class _MoreInfoOrgState extends State<MoreInfoOrg> {
               const SizedBox(
                 height: 20,
               ),
-              const Text(
-                "Add Photos ",
-                style: TextStyle(
-                  fontFamily: "Montserrat",
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+              if (images.isEmpty)
+                const Text(
+                  "Add Photos ",
+                  style: TextStyle(
+                    fontFamily: "Montserrat",
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
               const SizedBox(
                 height: 20,
               ),
-              CircleAvatar(
-                radius: 30,
-                backgroundColor: const Color.fromARGB(255, 50, 52, 65),
-                child: IconButton(
-                    onPressed: loadAssets, icon: const Icon(Icons.add)),
+              if (images.isEmpty)
+                CircleAvatar(
+                  radius: 30,
+                  backgroundColor: const Color.fromARGB(255, 50, 52, 65),
+                  child: IconButton(
+                      onPressed: addImages, icon: const Icon(Icons.add)),
+                ),
+              // const Spacer(),
+              const SizedBox(
+                height: 50,
               ),
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                    height: 45,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        final now = new DateTime.now();
-                        String time = DateFormat('HH:mm:ss').format(now);
-                        String date =
-                            DateFormat('yMd').format(now); // 28/03/2020
+              _isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                            height: 45,
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                print(widget.disasterType);
+                                final now = new DateTime.now();
+                                String time =
+                                    DateFormat('HH:mm:ss').format(now);
+                                String date = DateFormat('d/M/y')
+                                    .format(now); // 28/03/2020
+                                setState(() {
+                                  _isLoading = true;
+                                });
+                                uploadReport(
+                                        context: context,
+                                        imageFile: images[0],
+                                        name: "name",
+                                        dtype: widget.disasterType,
+                                        description: detailsController.text,
+                                        contact: contactController.text,
+                                        location: "location",
+                                        date: date,
+                                        time: time,
+                                        status: "Ongoing")
+                                    .then((value) {
+                                  setState(() {
+                                    Navigator.of(context).pop();
+                                    Navigator.push(context, MaterialPageRoute(
+                                      builder: (context) {
+                                        return BottomNavBar();
+                                      },
+                                    ));
 
-                        postDataToServer(
-                            name: "name",
-                            dtype: widget.disasterType,
-                            description: detailsController.text,
-                            contact: contactController.text,
-                            location: "location",
-                            date: date,
-                            time: time,
-                            status: "Ongoing");
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 50, 52, 65)),
-                      child: const Text("Submit"),
-                    )),
-              )
+                                    _isLoading = false;
+                                  });
+                                });
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 50, 52, 65)),
+                              child: const Text("Report"),
+                            )),
+                      ),
+                    )
             ],
           ),
         ),

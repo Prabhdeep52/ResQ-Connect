@@ -15,7 +15,7 @@ migrate_working_dir/
 *.ipr
 *.iws
 .idea/
-
+lib/secrets.dart
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
@@ -31,8 +31,10 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-
+# /app/grade.properties/
 # Symbolication related
+
+/android/gradle.properties
 app.*.symbols
 
 # Obfuscation related

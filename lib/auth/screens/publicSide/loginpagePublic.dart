@@ -1,27 +1,31 @@
-import 'package:disaster_managment_sih/auth/auth_service.dart';
+import 'package:disaster_managment_sih/auth/screens/publicSide/signuppagePublic.dart';
+import 'package:disaster_managment_sih/auth/services/auth_service.dart';
 import 'package:disaster_managment_sih/features/bottomNav/bottomNavBar.dart';
 
 import 'package:disaster_managment_sih/features/home/widgets/customtextfield.dart';
-import 'package:disaster_managment_sih/orgs/signUpPage.dart';
+// import 'package:disaster_managment_sih/auth/screens/signUpOrgPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginPagePublic extends StatefulWidget {
+  const LoginPagePublic({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginPagePublic> createState() => _LoginPagePublicState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPagePublicState extends State<LoginPagePublic> {
   //final TextEditingController empIdController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-
+  bool isSendingReq = false;
   void signIn() async {
     final authService = Provider.of<AuthService>(context, listen: false);
     try {
+      setState(() {
+        isSendingReq = true;
+      });
       await authService.signInWithEmailandPassword(
           emailController.text, passwordController.text);
       Navigator.pushReplacement(
@@ -31,6 +35,9 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
     } catch (e) {
+      setState(() {
+        isSendingReq = false;
+      });
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
     }
@@ -90,19 +97,26 @@ class _LoginPageState extends State<LoginPage> {
             child: SizedBox(
                 height: 50,
                 width: double.infinity,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFF4727A)),
-                    onPressed: () {
-                      signIn();
-                    },
-                    child: const Text(
-                      "Continue",
-                      style: TextStyle(
-                          fontFamily: "Montserrat",
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                    ))),
+                child: isSendingReq
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              new AlwaysStoppedAnimation<Color>(Colors.blue),
+                        ),
+                      )
+                    : ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFF4727A)),
+                        onPressed: () {
+                          signIn();
+                        },
+                        child: const Text(
+                          "Continue",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ))),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -110,8 +124,9 @@ class _LoginPageState extends State<LoginPage> {
               const Text("New To ResQ? Sign Up"),
               TextButton(
                   onPressed: () {
+                    Navigator.of(context).pop();
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const SignUpOrg()));
+                        builder: (context) => const SignUpPublic()));
                   },
                   child: const Text(
                     "Sign Up",
