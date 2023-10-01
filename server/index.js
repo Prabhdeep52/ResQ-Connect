@@ -58,7 +58,7 @@ app.post('/reportPost', upload.single('image'), async (req, res) => {
       image: imageUrl,
       date: req.body.date || '',
       time: req.body.time || '',
-      status: req.body.status || '',
+      status: 'Ongoing',
     });
 
     // Save the report to MongoDB
@@ -150,3 +150,11 @@ app.get('/reportFetch/:date', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+
+//Edit report
+
+//Change report status from ongoing to closed
+
+
+  
