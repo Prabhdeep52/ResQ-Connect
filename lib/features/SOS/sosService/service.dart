@@ -3,46 +3,6 @@ import 'dart:convert';
 import 'package:disaster_managment_sih/features/SOS/sosService/disasterModel.dart';
 import 'package:disaster_managment_sih/features/home/widgets/snackbar.dart';
 import 'package:http/http.dart' as http;
-
-// Future<void> postDataToServer({
-//   required String name,
-//   required String dtype,
-//   required String description,
-//   required String contact,
-//   required String location,
-//   // List<String>? image,
-
-//   required String date,
-//   required String time,
-//   required String status,
-// }) async {
-//   final disasterReport = DisasterReport(
-//     name: name,
-//     dtype: dtype,
-//     description: description,
-//     contact: contact,
-//     location: location,
-//     date: date,
-//     time: time,
-//     status: status,
-//   );
-
-//   final jsonBody = jsonEncode(disasterReport.toJson());
-
-//   const apiUrl = 'https://resq-api.onrender.com/reportPost';
-
-//   final response = await http.post(
-//     Uri.parse(apiUrl),
-//     headers: {'Content-Type': 'application/json'},
-//     body: jsonBody,
-//   );
-
-//   if (response.statusCode == 200) {
-//     print('Data posted successfully!');
-//   } else {
-//     print('Failed to post data: ${response.statusCode}');
-//   }
-// }
 import 'package:http_parser/http_parser.dart';
 import 'dart:convert';
 import 'dart:io';
