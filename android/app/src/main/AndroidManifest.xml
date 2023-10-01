@@ -1,12 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 
     package="com.example.disaster_managment_sih">
-<<<<<<< HEAD
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-=======
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
->>>>>>> b779007f313a4bbafd99f93e32c6ecf4f4725e10
+
    <application
         android:label="disaster_managment_sih"
         android:name="${applicationName}"
@@ -39,6 +39,6 @@
             android:value="2" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBaKuZsmodmdsBrIDg9IoBZ7ToAM197_TY" />   
+            android:value="AIzaSyDjAc4b2I5Lx6PS0OFQ6AeeaKtOqVCaljI" />   
     </application>
-</manifest>
+</manifest> 

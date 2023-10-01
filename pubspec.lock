@@ -89,7 +89,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.0"
-<<<<<<< HEAD
   cross_file:
     dependency: transitive
     description:
@@ -98,8 +97,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.3+5"
-=======
-
   crypto:
     dependency: transitive
     description:
@@ -108,8 +105,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
-
->>>>>>> b779007f313a4bbafd99f93e32c6ecf4f4725e10
   csslib:
     dependency: transitive
     description:
@@ -118,7 +113,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -155,10 +149,10 @@ packages:
     dependency: "direct main"
     description:
       name: dotted_border
-      sha256: "07a5c5e8d4e6e992279e190e0352be8faa5b8f96d81c77a78b2d42f060279840"
+      sha256: "108837e11848ca776c53b30bc870086f84b62ed6e01c503ed976e8f8c7df9c04"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0+3"
+    version: "2.1.0"
   fake_async:
     dependency: transitive
     description:
@@ -252,6 +246,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_dotenv:
+    dependency: "direct main"
+    description:
+      name: flutter_dotenv
+      sha256: "9357883bdd153ab78cbf9ffa07656e336b8bbb2b5a3ca596b0b27e119f7c7d77"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.1.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -294,9 +296,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-<<<<<<< HEAD
-=======
-
   fluttertoast:
     dependency: "direct main"
     description:
@@ -317,18 +316,18 @@ packages:
     dependency: transitive
     description:
       name: geolocator_android
-      sha256: fb7fc45ce08714a17d1bb097c58b751a10c12255c35c3f64a3c6922222d93be2
+      sha256: "93906636752ea4d4e778afa981fdfe7409f545b3147046300df194330044d349"
       url: "https://pub.dev"
     source: hosted
-    version: "4.3.0"
+    version: "4.3.1"
   geolocator_apple:
     dependency: transitive
     description:
       name: geolocator_apple
-      sha256: "2c0187c84ca04fdb4e2b32a775dbe97448622a53f1c9ecb26d8b6b0df6e72b65"
+      sha256: ab90ae811c42ec2f6021e01eca71df00dee6ff1e69d2c2dafd4daeb0b793f73d
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.2"
   geolocator_platform_interface:
     dependency: transitive
     description:
@@ -353,9 +352,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.1"
-
-
->>>>>>> b779007f313a4bbafd99f93e32c6ecf4f4725e10
   google_maps:
     dependency: transitive
     description:
@@ -420,13 +416,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.13.6"
-<<<<<<< HEAD
-=======
-
-
->>>>>>> b779007f313a4bbafd99f93e32c6ecf4f4725e10
   http_parser:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http_parser
       sha256: "2aa08ce0341cc9b354a498388e30986515406668dbcc4f7c950c3e715496693b"
@@ -445,10 +436,10 @@ packages:
     dependency: transitive
     description:
       name: image_picker_android
-      sha256: "47da2161c2e9f8f8a9cbbd89d466d174333fbdd769aeed848912e0b16d9cb369"
+      sha256: "0c7b83bbe2980c8a8e36e974f055e11e51675784e13a4762889feed0f3937ff2"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.8"
+    version: "0.8.8+1"
   image_picker_for_web:
     dependency: transitive
     description:
@@ -613,10 +604,10 @@ packages:
     dependency: transitive
     description:
       name: permission_handler_android
-      sha256: f2543a236584a5e8be79076f858022f100ce690e31530e6fa4c32ac94f276d3a
+      sha256: ace7d15a3d1a4a0b91c041d01e5405df221edb9de9116525efc773c74e6fc790
       url: "https://pub.dev"
     source: hosted
-    version: "11.0.3"
+    version: "11.0.5"
   permission_handler_apple:
     dependency: transitive
     description:
@@ -661,10 +652,10 @@ packages:
     dependency: transitive
     description:
       name: sanitize_html
-      sha256: "0a445f19bbaa196f5a4f93461aa066b94e6e025622eb1e9bc77872a5e25233a5"
+      sha256: "12669c4a913688a26555323fb9cec373d8f9fbe091f2d01c40c723b33caa8989"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "2.1.0"
   sky_engine:
     dependency: transitive
     description: flutter

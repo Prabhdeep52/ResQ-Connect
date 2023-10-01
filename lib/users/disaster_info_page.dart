@@ -467,9 +467,18 @@ class _DisasterInfoState extends State<DisasterInfo> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
-                height: 20,
+                height: 5,
+              ),
+              IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+              const SizedBox(
+                height: 15,
               ),
               const Center(
                 child: Text(

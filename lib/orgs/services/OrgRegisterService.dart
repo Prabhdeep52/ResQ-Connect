@@ -15,8 +15,7 @@ Future<void> postOrgDataToServer({
 
   final jsonBody = jsonEncode(OrgRegistration.toMap()); // CHECK HERE
 
-  const apiUrl =
-      'https://resq-api.onrender.com/orgPost'; // Replace with your API URL
+  const apiUrl = 'https://resq-api.onrender.com/orgPost';
 
   final response = await http.post(
     Uri.parse(apiUrl),

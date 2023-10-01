@@ -1,6 +1,8 @@
 // ignore: file_names
 import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:disaster_managment_sih/features/home/widgets/snackbar.dart';
+import 'package:disaster_managment_sih/orgs/navpageorg.dart';
 import 'package:disaster_managment_sih/orgs/services/OrgRegisterService.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -10,15 +12,15 @@ import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:dotted_border/dotted_border.dart';
 
-class AddProductScreen extends StatefulWidget {
+class RegisterOrgScreen extends StatefulWidget {
   static const String routeName = "/add-product-screen";
-  const AddProductScreen({super.key});
+  const RegisterOrgScreen({super.key});
 
   @override
-  State<AddProductScreen> createState() => _AddProductScreenState();
+  State<RegisterOrgScreen> createState() => _RegisterOrgScreenState();
 }
 
-class _AddProductScreenState extends State<AddProductScreen> {
+class _RegisterOrgScreenState extends State<RegisterOrgScreen> {
   final TextEditingController OrgNameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController LocationController = TextEditingController();
@@ -26,7 +28,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
   // final AdminServices adminservices = AdminServices();
   String category = "Mobiles";
   final _addProductKey = GlobalKey<FormState>();
-  List<File> images = [];
 
   @override
   void dispose() {
@@ -42,9 +43,35 @@ class _AddProductScreenState extends State<AddProductScreen> {
     "Earthquake",
     "Flood",
   ];
+  void _submitForm() {
+    if (OrgNameController.text.isEmpty ||
+        descriptionController.text.isEmpty ||
+        LocationController.text.isEmpty ||
+        OrgTypeController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Enter all the required fields")));
+      return;
+    }
+
+    // If all validations pass, call postOrgDataToServer and navigate
+    postOrgDataToServer(
+      name: OrgNameController.text,
+      type: OrgTypeController.text,
+      description: descriptionController.text,
+      location: LocationController.text,
+    );
+
+    // Navigate to the desired screen (replace with your navigation logic)
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const BottomNavBarOrg(),
+      ),
+    );
+  }
 
   late File pickedImageFile;
-
+  List<File> images = [];
   void addImages() async {
     final pickedImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -152,6 +179,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       height: 14,
                     ),
                     TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty || value == null) {
+                          return 'data is required';
+                        }
+                        return null;
+                      },
                       controller: OrgNameController,
                       autocorrect: false,
                       decoration: InputDecoration(
@@ -166,6 +199,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       height: 14,
                     ),
                     TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty || value == null) {
+                          return 'data is required';
+                        }
+                        return null;
+                      },
                       controller: descriptionController,
                       autocorrect: false,
                       maxLines: 6,
@@ -182,6 +221,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       height: 14,
                     ),
                     TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty || value == null) {
+                          return 'data is required';
+                        }
+                        return null;
+                      },
                       controller: LocationController,
                       autocorrect: false,
                       decoration: InputDecoration(
@@ -196,6 +241,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       height: 14,
                     ),
                     TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty || value == null) {
+                          return 'data is required';
+                        }
+                        return null;
+                      },
                       controller: OrgTypeController,
                       autocorrect: false,
                       decoration: InputDecoration(
@@ -215,13 +266,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       child: OutlinedButton(
-                        onPressed: () {
-                          postOrgDataToServer(
-                              name: OrgNameController.text,
-                              type: OrgTypeController.text,
-                              description: descriptionController.text,
-                              location: LocationController.text);
-                        },
+                        onPressed: _submitForm,
                         style: ButtonStyle(
                           fixedSize:
                               MaterialStateProperty.all(const Size(350, 40)),

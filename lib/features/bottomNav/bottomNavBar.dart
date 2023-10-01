@@ -19,15 +19,12 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   var pageIndex = 0;
 
-
   final pages = const [
     HomePage(),
     SOSscreen(),
-     MapScreen()
+    MapScreen(),
     AboutPageUser(),
   ];
-
-
 
   @override
   Widget build(BuildContext context) {
