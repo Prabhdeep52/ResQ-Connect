@@ -54,7 +54,8 @@ app.post('/reportPost', upload.single('image'), async (req, res) => {
       dtype: req.body.dtype || '', 
       description: req.body.description || '',
       contact: req.body.contact || '',
-      location: req.body.location || '',
+      lat: req.body.lat || '',
+      long: req.body.long || '',
       image: imageUrl,
       date: req.body.date || '',
       time: req.body.time || '',
@@ -103,7 +104,8 @@ app.post('/orgPost', upload.single('image'), async (req, res) => {
         description: req.body.description || '',
         orgtype: req.body.orgtype || '',
         contact: req.body.contact || '',
-        location: req.body.location || '',
+        lat: req.body.lat || '',
+        long: req.body.long || '',
         logo: imageUrl
       });
     
