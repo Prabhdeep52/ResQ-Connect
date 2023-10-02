@@ -22,15 +22,16 @@ class _MapSceen2State extends State<MapSceen2> {
   late Marker _origin = Marker(markerId: MarkerId(""));
   List<dynamic> data = [];
   Set<Marker> markers = {};
-  List<String> images = [
-    "assets/icons/home.png",
-    "assets/icons/home.png",
-    "assets/icons/home.png",
-    "assets/icons/home.png",
-    "assets/icons/home.png",
-    "assets/icons/home.png",
-    "assets/icons/home.png",
-  ];
+  // List<String> images = [
+  //   "assets/icons/home.png",
+  //   "assets/icons/alert.png",
+  //   "assets/icons/menu.png",
+  //   "assets/icons/account.png",
+  //   "assets/icons/home.png",
+  //   "assets/icons/home.png",
+  //   "assets/icons/home.png",
+  // ];
+  List<String> images = [];
 
   @override
   void dispose() {
@@ -70,6 +71,25 @@ class _MapSceen2State extends State<MapSceen2> {
 
   void disasterLocations() async {
     for (int i = 0; i < data.length; i++) {
+      if (data[i]['dtype'] == "Fire") {
+        images.add("assets/dtypeImages/fire.png");
+      } else if (data[i]['dtype'] == "Water Shortage") {
+        images.add("assets/dtypeImages/water_shortage.png");
+      } else if (data[i]['dtype'] == "Famine") {
+        images.add("assets/dtypeImages/famine.png");
+      } else if (data[i]['dtype'] == "Flood") {
+        images.add("assets/dtypeImages/flood.png");
+      } else if (data[i]['dtype'] == "Earthqauke") {
+        images.add("assets/dtypeImages/earthquake.png");
+      } else if (data[i]['dtype'] == "Cyclone") {
+        images.add("assets/dtypeImages/cyclone.png");
+      } else if (data[i]['dtype'] == "Fire Hazard") {
+        images.add("assets/dtypeImages/fire.png");
+      } else if (data[i]['dtype'] == "Landslide") {
+        images.add("assets/dtypeImages/earthquake.png");
+      } else if (data[i]['dtype'] == "Others") {
+        images.add("assets/dtypeImages/others.png");
+      }
       final Uint8List markIcons = await getImages(images[i], 100);
       double lat = double.parse(data[i]['lat']);
       double long = double.parse(data[i]['long']);
