@@ -22,15 +22,6 @@ class _MapSceen2State extends State<MapSceen2> {
   late Marker _origin = Marker(markerId: MarkerId(""));
   List<dynamic> data = [];
   Set<Marker> markers = {};
-  // List<String> images = [
-  //   "assets/icons/home.png",
-  //   "assets/icons/alert.png",
-  //   "assets/icons/menu.png",
-  //   "assets/icons/account.png",
-  //   "assets/icons/home.png",
-  //   "assets/icons/home.png",
-  //   "assets/icons/home.png",
-  // ];
   List<String> images = [];
 
   @override
@@ -112,13 +103,18 @@ class _MapSceen2State extends State<MapSceen2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-          initialCameraPosition: initialCameraPos,
-          zoomControlsEnabled: false,
-          myLocationEnabled: false,
-          // ignore: non_constant_identifier_names
-          onMapCreated: (Controller) => _googleMapController = Controller,
-          markers: markers),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        child: GoogleMap(
+            mapToolbarEnabled: true,
+            mapType: MapType.normal,
+            initialCameraPosition: initialCameraPos,
+            zoomControlsEnabled: false,
+            myLocationEnabled: false,
+            // ignore: non_constant_identifier_names
+            onMapCreated: (Controller) => _googleMapController = Controller,
+            markers: markers),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _googleMapController!
             .animateCamera(CameraUpdate.newCameraPosition(initialCameraPos)),

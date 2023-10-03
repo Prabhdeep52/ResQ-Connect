@@ -18,9 +18,17 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: const Text("ResQ Chat"),
+        title: const Text(
+          "ResQ Chat",
+          style: TextStyle(
+              color: Colors.black,
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              fontFamily: "Montserrat-SemiBold"),
+        ),
       ),
       body: _buildUserList(),
     );
@@ -49,7 +57,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       backgroundImage: NetworkImage(
                           "https://nationaltoday.com/wp-content/uploads/2022/05/74-Robert-Pattinson.jpg.webp")),
                   title: Text(
-                    data["email"] ?? ' ',
+                    data["username"] ?? ' ',
                     style: TextStyle(color: Colors.black),
                   ),
                   onTap: () {

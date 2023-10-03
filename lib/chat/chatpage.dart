@@ -33,12 +33,10 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(widget.receiverUserEmail),
-      // ),
+      appBar: AppBar(
+        title: Text(widget.receiverUserEmail),
+      ),
       body: Column(children: [
-
-        
         Expanded(
           child: _buildMessageList(),
         ),
