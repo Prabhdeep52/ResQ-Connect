@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -13,7 +14,7 @@ import 'package:device_info/device_info.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:convert';
-
+import 'package:geocoding/geocoding.dart';
 import 'package:disaster_managment_sih/features/SOS/sosService/disasterModel.dart';
 import 'package:http/http.dart' as http;
 
@@ -42,8 +43,8 @@ final List<String> _disasterTypes = [
 class _MoreInfoOrgState extends State<MoreInfoOrg> {
   final TextEditingController detailsController = TextEditingController();
   final TextEditingController contactController = TextEditingController();
-  late String latitude = "";
-  late String longitude = "";
+  late String latitude = "0.0";
+  late String longitude = "0.0";
 
   List<File> imagesList = <File>[];
   String _error = 'No Error Detected';
@@ -51,7 +52,7 @@ class _MoreInfoOrgState extends State<MoreInfoOrg> {
   bool _isLoading = false;
   void addImages() async {
     final pickedImage =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+        await ImagePicker().pickImage(source: ImageSource.camera);
 
     if (pickedImage == null) {
       return;
@@ -85,8 +86,10 @@ class _MoreInfoOrgState extends State<MoreInfoOrg> {
         desiredAccuracy: LocationAccuracy.high,
       );
       setState(() {
-        latitude = "${position.latitude}";
-        longitude = "${position.longitude}";
+        // latitude = "${position.latitude}";
+        // longitude = "${position.longitude}";
+        latitude = position.latitude.toStringAsFixed(2);
+        longitude = position.longitude.toStringAsFixed(2);
       });
     }
     if (permission == LocationPermission.whileInUse) {
@@ -94,13 +97,17 @@ class _MoreInfoOrgState extends State<MoreInfoOrg> {
         desiredAccuracy: LocationAccuracy.high,
       );
       setState(() {
-        latitude = "${position.latitude}";
-        longitude = "${position.longitude}";
+        // latitude = "${position.latitude}";
+        // longitude = "${position.longitude}";
+        latitude = position.latitude.toStringAsFixed(2);
+        longitude = position.longitude.toStringAsFixed(2);
       });
     }
-
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+        double.parse(latitude), double.parse(longitude));
     print(latitude);
     print(longitude);
+    print(placemarks.last.locality);
   }
 
   void getLocation() {
@@ -240,23 +247,27 @@ class _MoreInfoOrgState extends State<MoreInfoOrg> {
                 height: 20,
               ),
               if (images.isEmpty)
-                const Text(
-                  "Add Photos ",
-                  style: TextStyle(
-                    fontFamily: "Montserrat",
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                const Center(
+                  child: Text(
+                    "Add Photos ",
+                    style: TextStyle(
+                      fontFamily: "Montserrat",
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               const SizedBox(
                 height: 20,
               ),
               if (images.isEmpty)
-                CircleAvatar(
-                  radius: 30,
-                  backgroundColor: const Color.fromARGB(255, 50, 52, 65),
-                  child: IconButton(
-                      onPressed: addImages, icon: const Icon(Icons.add)),
+                Center(
+                  child: CircleAvatar(
+                    radius: 30,
+                    backgroundColor: const Color.fromARGB(255, 50, 52, 65),
+                    child: IconButton(
+                        onPressed: addImages, icon: const Icon(Icons.add)),
+                  ),
                 ),
               // const Spacer(),
               const SizedBox(
@@ -282,28 +293,24 @@ class _MoreInfoOrgState extends State<MoreInfoOrg> {
                                   _isLoading = true;
                                 });
                                 uploadReport(
-                                        context: context,
-                                        imageFile: images[0],
-                                        name: "name",
-                                        dtype: widget.disasterType,
-                                        description: detailsController.text,
-                                        contact: contactController.text,
-                                        location: "location",
-                                        date: date,
-                                        time: time,
-                                        status: "Ongoing")
-                                    .then((value) {
+                                    context: context,
+                                    imageFile: images[0],
+                                    name: "name",
+                                    dtype: widget.disasterType,
+                                    description: detailsController.text,
+                                    contact: contactController.text,
+                                    lat: latitude,
+                                    long: longitude,
+                                    date: date,
+                                    time: time,
+                                    status: "Ongoing");
+                                Timer.periodic(Duration(seconds: 2), (_) {
                                   setState(() {
-                                    Navigator.of(context).pop();
-                                    Navigator.push(context, MaterialPageRoute(
-                                      builder: (context) {
-                                        return BottomNavBar();
-                                      },
-                                    ));
-
                                     _isLoading = false;
                                   });
+                                  Navigator.pop(context);
                                 });
+                                // Time
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor:

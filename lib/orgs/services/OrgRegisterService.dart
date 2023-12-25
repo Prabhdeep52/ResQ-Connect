@@ -9,9 +9,16 @@ Future<void> postOrgDataToServer({
   required String type,
   required String description,
   required String location,
+  required String lat,
+  required String long,
 }) async {
   final OrgRegistration = Organization(
-      name: name, description: description, location: location, OrgType: type);
+      lat: lat,
+      long: long,
+      name: name,
+      description: description,
+      location: location,
+      OrgType: type);
 
   final jsonBody = jsonEncode(OrgRegistration.toMap()); // CHECK HERE
 

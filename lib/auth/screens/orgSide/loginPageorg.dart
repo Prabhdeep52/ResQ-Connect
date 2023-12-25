@@ -16,7 +16,7 @@ class LoginPageOrg extends StatefulWidget {
 }
 
 class _LoginPageOrgState extends State<LoginPageOrg> {
-  //final TextEditingController empIdController = TextEditingController();
+  bool hideText = true;
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   bool isSendingReq = false;
@@ -84,11 +84,51 @@ class _LoginPageOrgState extends State<LoginPageOrg> {
             controller: emailController,
             text1: "Email",
           ),
-          CustomTextField(
-            maxLines: 1,
-            controller: passwordController,
-            text1: "Password",
-          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black12, width: 2),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Center(
+                child: TextFormField(
+                  obscureText: hideText,
+                  cursorColor: const Color.fromARGB(31, 78, 77, 77),
+                  controller: passwordController,
+                  decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              hideText = !hideText;
+                            });
+                          },
+                          icon: hideText
+                              ? Icon(
+                                  Icons.visibility_off_outlined,
+                                  color: Colors.black,
+                                  size: 25.sp,
+                                )
+                              : Icon(
+                                  Icons.visibility_outlined,
+                                  color: Colors.black,
+                                  size: 25.sp,
+                                )),
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      hintText: "Password"),
+                  maxLines: 1,
+                ),
+              ),
+            ),
+          )
+          // CustomTextField(
+          //   maxLines: 1,
+          //   controller: passwordController,
+          //   text1: "Password",
+          // ),
+          ,
           SizedBox(
             height: 100.h,
           ),

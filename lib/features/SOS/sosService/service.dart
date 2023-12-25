@@ -13,7 +13,8 @@ Future<void> uploadReport({
   required String name,
   required String description,
   required String contact,
-  required String location,
+  required String lat,
+  required String long,
   required String dtype,
   required String date,
   required String time,
@@ -26,12 +27,12 @@ Future<void> uploadReport({
 
     final request = http.MultipartRequest('POST', url);
 
-    // Add text fields
     request.fields['name'] = name;
     request.fields['dtype'] = dtype;
     request.fields['description'] = description;
     request.fields['contact'] = contact;
-    request.fields['location'] = location;
+    request.fields['lat'] = lat;
+    request.fields['long'] = long;
     request.fields['date'] = date;
     request.fields['time'] = time;
     request.fields['status'] = status;

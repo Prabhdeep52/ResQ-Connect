@@ -130,7 +130,7 @@ class SOSscreen extends StatelessWidget {
                       child: SizedBox(
                         width: 260.w,
                         child: Text(
-                          "New york street , block c switzerland pincode - 629191",
+                          "kellumbakum , chennai . pincode - 6000127",
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontFamily: "Roboto",

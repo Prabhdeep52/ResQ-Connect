@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import "publicSide/loginpagePublic.dart";
 import 'orgSide/loginPageorg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
@@ -13,11 +14,13 @@ class LandingPage extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          const Center(
-            child: Icon(
-              Icons.public_outlined,
-              size: 150,
-              color: Colors.pink,
+          Container(
+            padding: EdgeInsets.only(left: 15.w, top: 35.h),
+            height: 200.h,
+            width: 300.w,
+            child: Image.asset(
+              "assets/images/logoo.png",
+              color: const Color(0xFFF4727A),
             ),
           ),
           const SizedBox(
@@ -55,7 +58,8 @@ class LandingPage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (BuildContext context) => LoginPageOrg()));
+                            builder: (BuildContext context) =>
+                                const LoginPageOrg()));
                   },
                   child: ListTile(
                     trailing: IconButton(
@@ -77,7 +81,7 @@ class LandingPage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                LoginPagePublic()));
+                                const LoginPagePublic()));
                   },
                   child: ListTile(
                     selectedColor: Colors.black,

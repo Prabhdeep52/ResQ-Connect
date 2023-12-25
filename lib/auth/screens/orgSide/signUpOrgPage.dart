@@ -19,6 +19,7 @@ class SignUpOrg extends StatefulWidget {
 }
 
 class _SignUpOrgState extends State<SignUpOrg> {
+  bool hideText = true;
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -126,18 +127,69 @@ class _SignUpOrgState extends State<SignUpOrg> {
             controller: emailController,
             text1: "Email",
           ),
-          CustomTextField(
-            maxLines: 1,
-            controller: passwordController,
-            text1: "Password",
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black12, width: 2),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Center(
+                child: TextFormField(
+                  obscureText: true,
+                  cursorColor: const Color.fromARGB(31, 78, 77, 77),
+                  controller: passwordController,
+                  decoration: const InputDecoration(
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      hintText: "Password"),
+                  maxLines: 1,
+                ),
+              ),
+            ),
           ),
-          CustomTextField(
-            maxLines: 1,
-            controller: cnfmpassController,
-            text1: "Confirm Password",
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black12, width: 2),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Center(
+                child: TextFormField(
+                  obscureText: hideText,
+                  cursorColor: const Color.fromARGB(31, 78, 77, 77),
+                  controller: cnfmpassController,
+                  decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              hideText = !hideText;
+                            });
+                          },
+                          icon: hideText
+                              ? Icon(
+                                  Icons.visibility_off_outlined,
+                                  color: Colors.black,
+                                  size: 25.sp,
+                                )
+                              : Icon(
+                                  Icons.visibility_outlined,
+                                  color: Colors.black,
+                                  size: 25.sp,
+                                )),
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      hintText: "Confirm Password"),
+                  maxLines: 1,
+                ),
+              ),
+            ),
           ),
           SizedBox(
-            height: 90.h,
+            height: 70.h,
           ),
           Padding(
             padding: const EdgeInsets.all(6.0),

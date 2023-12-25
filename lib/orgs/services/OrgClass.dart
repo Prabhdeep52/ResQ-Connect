@@ -6,7 +6,11 @@ class Organization {
   String description;
   String location;
   String OrgType;
+  String lat;
+  String long;
   Organization({
+    required this.lat,
+    required this.long,
     required this.name,
     required this.description,
     required this.location,
@@ -19,6 +23,8 @@ class Organization {
       'description': description,
       'location': location,
       'OrgType': OrgType,
+      'lat': lat,
+      'long': long,
     };
   }
 }

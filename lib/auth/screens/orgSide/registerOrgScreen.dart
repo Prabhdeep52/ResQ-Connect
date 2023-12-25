@@ -1,11 +1,20 @@
 // ignore: file_names
 import 'dart:io';
+import 'dart:async';
+import 'dart:io';
+import 'dart:ui';
+import 'dart:async';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:disaster_managment_sih/features/home/widgets/snackbar.dart';
 import 'package:disaster_managment_sih/orgs/navpageorg.dart';
+import 'package:device_info/device_info.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:disaster_managment_sih/orgs/services/OrgRegisterService.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'dart:convert';
+import 'package:geocoding/geocoding.dart';
 import 'package:permission_handler/permission_handler.dart';
 // import 'package:e_commerce_app/constants/utils.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +37,8 @@ class _RegisterOrgScreenState extends State<RegisterOrgScreen> {
   // final AdminServices adminservices = AdminServices();
   String category = "Mobiles";
   final _addProductKey = GlobalKey<FormState>();
+  late String latitude = "";
+  late String longitude = "";
 
   @override
   void dispose() {
@@ -59,6 +70,8 @@ class _RegisterOrgScreenState extends State<RegisterOrgScreen> {
       type: OrgTypeController.text,
       description: descriptionController.text,
       location: LocationController.text,
+      lat: latitude,
+      long: longitude,
     );
 
     // Navigate to the desired screen (replace with your navigation logic)
@@ -68,6 +81,60 @@ class _RegisterOrgScreenState extends State<RegisterOrgScreen> {
         builder: (context) => const BottomNavBarOrg(),
       ),
     );
+
+    showSnackBar(context, "Data posted successfully !");
+  }
+
+  Future<Position?> _getCurrentLocation() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      throw Exception("Service not enabled");
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        throw Exception("Location permissoion permanently");
+      }
+      if (permission == LocationPermission.deniedForever) {
+        throw Exception("Location permissoion permanently denied");
+      }
+
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      setState(() {
+        latitude = position.latitude.toStringAsFixed(2);
+        longitude = position.longitude.toStringAsFixed(2);
+      });
+    }
+    if (permission == LocationPermission.whileInUse) {
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      setState(() {
+        latitude = position.latitude.toStringAsFixed(2);
+        longitude = position.longitude.toStringAsFixed(2);
+      });
+    }
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+        double.parse(latitude), double.parse(longitude));
+    print(latitude);
+    print(longitude);
+    print(placemarks.last.locality);
+  }
+
+  void getLocation() {
+    _getCurrentLocation();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getLocation();
   }
 
   late File pickedImageFile;
