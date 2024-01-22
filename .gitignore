@@ -44,7 +44,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
+AndroidManifest.xml
 #Node Dependencies
 /server/node_modules
 /server/package-lock.json

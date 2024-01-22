@@ -134,6 +134,7 @@ class _HomePageOrgState extends State<HomePageOrg> {
 
               // CAUTION :::: REMOVE FUTURE BUILDER AFTER CREATING DEMO VIDEO FIND BETTER SOLUTION
               FutureBuilder(
+                initialData: [],
                 future: fetchData(),
                 builder: (context, snapshot) {
                   return ListView.builder(
