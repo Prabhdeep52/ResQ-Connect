@@ -23,7 +23,7 @@ Future<void> uploadReport({
 }) async {
   try {
     final url = Uri.parse(
-        'https://resq-api.onrender.com/reportPost'); // Replace with your server's URL
+        'https://resq-api.onrender.com/reportPost'); 
 
     final request = http.MultipartRequest('POST', url);
 
@@ -37,13 +37,13 @@ Future<void> uploadReport({
     request.fields['time'] = time;
     request.fields['status'] = status;
 
-    // Add the image file if provided
+    
     if (imageFile != null) {
       request.files.add(await http.MultipartFile.fromPath(
         'image',
         imageFile.path,
         contentType:
-            MediaType('image', 'jpeg'), // Adjust content type as needed
+            MediaType('image', 'jpeg'), 
       ));
     }
 
